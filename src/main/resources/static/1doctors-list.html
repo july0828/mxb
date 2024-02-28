@@ -114,7 +114,14 @@
                 :visible.sync="dialogVisible"
                 width="30%"
                 :before-close="handleClose">
-            <span>这是一段信息</span>
+            <el-form ref="form" :model="question" label-width="80px">
+                <el-form-item label="时间">
+                    <el-input v-model="question.time"></el-input>
+                </el-form-item>
+                <el-form-item label="问题">
+                    <el-input type="textarea" v-model="question.content"></el-input>
+                </el-form-item>
+            </el-form>
             <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
     <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
@@ -243,8 +250,16 @@
                     acountId: "",
                     brief: "",
                     name:""
-                }]
+                }],
+                question:{
+                    content:"",
+                    time:"",
+                    userId:"",
+                    doctorNum:""
+                }
             }
+
+
         },
         methods: {
             handleSelect(num) {
