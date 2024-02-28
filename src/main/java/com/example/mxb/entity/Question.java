@@ -1,8 +1,8 @@
 package com.example.mxb.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,12 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Question {
-    @TableId(type= IdType.AUTO)
+    @TableId(type = IdType.AUTO)
     private Integer id;
-    @TableField(value = "user_id")
-    private Integer userId;
-    @TableField(value = "doctor_id")
-    private Integer doctorId;
+    private Integer accountId;
+    private Integer doctorNum;
     private String content;
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
     private String time;
 }

@@ -59,7 +59,7 @@
                     <div class="collapse navbar-collapse navbar-ex1-collapse">
                         <ul class="nav navbar-nav navbar-right cl-effect-15">
                             <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                            <li class="hidden"><a class="page-scroll" href="#page-top"></a>	</li>
+                            <li class="hidden"><a class="page-scroll" href="#page-top"></a></li>
                             <li><a class="page-scroll scroll" href="index.html">首页</a></li>
                             <li><a class="page-scroll scroll" href="1doctors-list.html">医生列表</a></li>
                             <li><a class="page-scroll scroll" href="1abouts-list.html">知识库</a></li>
@@ -88,20 +88,22 @@
                     <h3 style="color: white">医生列表</h3>
                 </div>
                 <el-row>
-                    <el-col :span="8" v-for="(doctor, index) in doctors" :key="doctor.acountId" style="margin-top: 40px">
+                    <el-col :span="8" v-for="(doctor, index) in doctors" :key="doctor.acountId"
+                            style="margin-top: 40px">
                         <el-card :body-style="{ padding: '0px' }" style="margin-left: 30px;height: 450px">
                             <img :src="doctor.photo" class="image" height="300px" width="100px">
                             <div style="padding: 14px;">
-                                <span>{{doctor.name}}</span>
-                                <span>{{doctor.sex}}</span>
-                                <span>{{doctor.num}}</span>
-                                <span>{{doctor.grade}}</span>
-                                <span>{{doctor.category}}</span>
-                                <span>{{doctor.brief}}</span>
+                                <span>{{ doctor.name }}</span>
+                                <span>{{ doctor.sex }}</span>
+                                <span>{{ doctor.num }}</span>
+                                <span>{{ doctor.grade }}</span>
+                                <span>{{ doctor.category }}</span>
+                                <span>{{ doctor.brief }}</span>
                                 <div class="bottom clearfix">
                                     <time class="time"></time>
-                                    <el-button type="text" class="button" @click="handleSelect(doctor.num)">预约</el-button>
-                                    <el-button type="text" @click="addconsult">咨询</el-button>
+                                    <el-button type="text" class="button" @click="handleSelect(doctor.num)">预约
+                                    </el-button>
+                                    <el-button type="text" @click="openDialog(doctor.num)">咨询</el-button>
                                 </div>
                             </div>
                         </el-card>
@@ -124,7 +126,7 @@
             </el-form>
             <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+    <el-button type="primary" @click="addQuestion">确 定</el-button>
   </span>
         </el-dialog>
         <script src="js/easy-responsive-tabs.js"></script>
@@ -249,13 +251,13 @@
                     photo: "",
                     acountId: "",
                     brief: "",
-                    name:""
+                    name: ""
                 }],
-                question:{
-                    content:"",
-                    time:"",
-                    userId:"",
-                    doctorNum:""
+                question: {
+                    content: "",
+                    time: "",
+                    userId: "",
+                    doctorNum: ""
                 }
             }
 
@@ -263,7 +265,7 @@
         },
         methods: {
             handleSelect(num) {
-                location.href="1appointmentform.html?num="+ num
+                location.href = "1appointmentform.html?num=" + num
             },
             login() {
                 axios.get("/userLoginIndex").then(function (response) {
@@ -293,16 +295,29 @@
                     .then(_ => {
                         done();
                     })
-                    .catch(_ => {});
+                    .catch(_ => {
+                    });
             },
-            addconsult(){
-                v.dialogVisible = true;
-
+            openDialog(doctorNum) {
+                this.dialogVisible = true;
+                this.question.doctorNum = doctorNum;
+            },
+            addQuestion() {
+                v.dialogVisible = false;
+                axios.post("/question/insert", v.question).then(function (response) {
+                })
             }
         },
         created: function () {
-            axios.get("/doctor/selectAll").then(function (response) {
-                v.doctors = response.data
+            axios.post("/userLogin").then(function (response) {//判断是否登录
+                if (response.data === 0) {//未登录
+                    alert("请登录")
+                    location.href = "login.html"
+                }
+                v.question.accountId = response.data;
+                axios.get("/doctor/selectAll").then(function (response) {
+                    v.doctors = response.data
+                })
             })
         }
     })
