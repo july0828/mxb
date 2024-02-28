@@ -32,6 +32,10 @@
     <!-- //Default-JavaScript-File -->
 
     <script src="js/bootstrap.js"></script>    <!-- //bootstrap-JavaScript-File -->
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 
 </head>
 <!-- Head -->
@@ -100,9 +104,10 @@
                             <span style="font-size: 30px;color:antiquewhite">{{ about.title }}</span>
                             <p style="color: antiquewhite;font-size: 15px">{{ about.content }}</p>
                             <p style="color: antiquewhite;font-size: 15px">{{ about.time }}</p>
-                            <button @click="toggleFavorite(about.id, about.isFavorite)">
-                                <span :class="{'favorite-icon': true, 'red': about.isFavorite}"></span>
-                            </button>
+                            <el-button @click="toggleFavorite(about.id, about.isFavorite)"
+                                       :type="about.isFavorite ? 'danger' : 'default'"
+                                       icon="el-icon-star-off"
+                                       circle></el-button>
                             <!--            <a href="#myModal" class="w3more" data-toggle="modal"><i class="fa fa-mail-forward" aria-hidden="true"></i> Read more</a>-->
                         </div>
                     </div>
@@ -232,10 +237,11 @@
                     isFavorite: false,
                 }],
                 favorite: {
-                    userId: "",
+                    accountId: "",
                     aboutId: "",
                     time: "",
-                }
+                },
+                accountId: "",
             }
 
         },
@@ -264,26 +270,33 @@
                 })
             },
             toggleFavorite(aboutId, isFavorite) {
-                axios.post("/userLogin").then(function (response) {//判断是否登录
-                    if (response.data === 0) {//未登录
-                        alert("请登录")
-                        location.href = "login.html"
-                    }
-                    v.favorite.userId = response.data;//返回userid的值
-                }),
+                if (isFavorite) {
+                    axios.post("/favorite/delete", {accountId: v.accountId, aboutId: aboutId}).then(function (response) {
+
+                    })
+                } else {
                     v.favorite.aboutId = aboutId;
-
-
-                axios.post("/favorite/add", v.favorite).then(function (response) {
-                    // v.favorite = response.data;
-                    // this.isFavorite = !this.isFavorite; // 切换收藏状态
+                    axios.post("/favorite/add", v.favorite).then(function (response) {
+                    })
+                }
+                v.abouts.forEach(function (about) {
+                    if (about.id === aboutId) {
+                        about.isFavorite = !isFavorite;
+                    }
                 })
-
             },
         },
         created: function () {
-            axios.get("/about/selectAll").then(function (response) {
-                v.abouts = response.data
+            axios.post("/userLogin").then(function (response) {//判断是否登录
+                if (response.data === 0) {//未登录
+                    alert("请登录")
+                    location.href = "login.html"
+                }
+                v.favorite.accountId = response.data;
+                v.accountId = response.data;
+                axios.get("/about/selectAll").then(function (response) {
+                    v.abouts = response.data
+                })
             })
         }
     })

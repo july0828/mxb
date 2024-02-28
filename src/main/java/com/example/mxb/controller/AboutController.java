@@ -2,11 +2,9 @@ package com.example.mxb.controller;
 
 import com.example.mxb.entity.*;
 import com.example.mxb.mapper.AboutMapper;
-import com.example.mxb.mapper.AcountMapper;
 import com.example.mxb.mapper.FavoriteMapper;
 import com.example.mxb.mapper.UserMapper;
 import com.example.mxb.service.AboutService;
-import com.example.mxb.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,8 +42,7 @@ public class AboutController {
     public List<About> selectAll(HttpSession session){
         List<About> abouts=aboutService.list();
         Acount acount = (Acount) session.getAttribute("acount");
-        User user = userMapper.getByAccountId(acount.getId());
-        List<Favorite> favorites = favoriteMapper.selectByUserId(user.getId());
+        List<Favorite> favorites = favoriteMapper.selectByAccountId(acount.getId());
         List<Integer> aboutIds = favorites.stream().map(Favorite::getAboutId).collect(Collectors.toList());
         abouts.forEach(about -> about.setIsFavorite(aboutIds.contains(about.getId())));
         return abouts;

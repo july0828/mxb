@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface FavoriteMapper extends BaseMapper<Favorite> {
 
-    default List<Favorite> selectByUserId(Integer userId){
-        return selectList(new LambdaQueryWrapper<Favorite>().eq(Favorite::getAccountId,userId));
+    default List<Favorite> selectByAccountId(Integer accountId) {
+        return selectList(new LambdaQueryWrapper<Favorite>().eq(Favorite::getAccountId, accountId));
     }
 }
