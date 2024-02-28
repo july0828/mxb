@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head -->
+<head>
+    <title>用户首页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="keywords" content=""/>
+
+    <!-- flexslider-css-file -->
+    <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" property=""/>
+    <!-- //flexslider-css-file -->
+
+    <link rel="stylesheet" href="css/easy-responsive-tabs.css">
+
+    <link href="css/font-awesome.css" rel="stylesheet">        <!-- font-awesome icons-css-file -->
+    <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">    <!-- bootstrap-css-file -->
+    <link href="css/styleuser.css" type="text/css" rel="stylesheet" media="all">    <!-- style-css-file -->
+    <link rel="stylesheet" href="css/elementui-index.css">
+
+    <!-- gallery -->
+    <link rel="stylesheet" href="css/lightbox.css">
+    <!-- //gallery -->
+
+    <!-- fonts -->
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Cinzel:400,700,900" rel="stylesheet">
+    <!-- //fonts -->
+
+    <!-- Default-JavaScript-File -->
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <!-- //Default-JavaScript-File -->
+
+    <script src="js/bootstrap.js"></script>    <!-- //bootstrap-JavaScript-File -->
+    <!-- 引入 ECharts 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+
+    <style>
+        .side-tabs .el-tabs__nav {
+            width: 90px; /* 根据实际需要调整侧边栏宽度 */
+        }
+
+        /* 调整所有标签的字体大小 */
+        .el-tabs__item,
+        .el-tabs__active {
+            font-size: 18px; /* 调整字体大小为18px */
+        }
+
+        /* 如果您的标签在侧边栏（垂直布局），也应用此样式 */
+        .el-tabs--left .el-tabs__item {
+            font-size: 18px;
+            height: auto; /* 调整字体大小为18px */
+        }
+
+        .el-tabs--left .el-tabs__item {
+            white-space: normal; /* 允许文本换行 */
+            line-height: 1.5; /* 调整行高 */
+        }
+        .resp-tabs-container .bhoechie-tab-content {
+            display: none;
+        }
+
+        .resp-tabs-container .bhoechie-tab-content.active {
+            display: block;
+        }
+
+    </style>
+</head>
+<!-- Head -->
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<div id="app">
+    <!-- banner -->
+    <div id="home" class="w3ls-banner">
+        <!-- header -->
+        <div class="header-w3layouts">
+            <!-- Navigation -->
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header page-scroll">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target=".navbar-ex1-collapse">
+                            <span class="sr-only">慢性病管理系统</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <h1><a class="navbar-brand" href="index.html">慢性病管理系统</a></h1>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav navbar-right cl-effect-15">
+                            <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                            <li class="hidden"><a class="page-scroll" href="#page-top"></a></li>
+                            <li><a class="page-scroll scroll" href="index.html">首页</a></li>
+                            <li><a class="page-scroll scroll" href="1doctors-list.html">医生列表</a></li>
+                            <li><a class="page-scroll scroll" href="1abouts-list.html">知识库</a></li>
+                            <li><a class="page-scroll scroll" href="1heath.html">健康评估</a></li>
+                            <li><a class="page-scroll scroll" href="1personcenter.html">个人中心</a></li>
+                            <li><a class="page-scroll scroll" v-on:click="login">后台管理</a></li>
+                            <li><a class="page-scroll scroll" href="login.html">登录</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container -->
+            </nav>
+        </div>
+        <!-- //header -->
+        <!--banner-->
+        <!--Slider-->
+        <div class="w3l_banner_info" style="padding-top: 20px;">
+        </div>
+
+
+        <div id="blog" class="banner-bottom blog" style="
+    background-size: cover;
+    background-attachment: fixed;">
+            <div class="container">
+                <div class="w3ls-heading">
+                    <h3 style="color: floralwhite">健康评估</h3>
+                </div>
+                <el-form ref="information" :model="information" label-width="80px">
+                    <el-form-item label="姓名" style="float: left">
+                        <el-input v-model.number="information.name"></el-input>
+                    </el-form-item>
+                    <el-form-item label="身高" style="float: left">
+                        <el-input v-model.number="information.height" :min="0" type="number"></el-input>
+                    </el-form-item>
+                    <el-form-item label="体重" style="float: left">
+                        <el-input v-model.number="information.weight" :min="0" type="number"></el-input>
+                    </el-form-item>
+                    <el-form-item label="体温" style="float: left">
+                        <el-input v-model.number="information.temperature" :min="0" type="number"></el-input>
+                    </el-form-item>
+                    <el-form-item label="高压" style="float: left">
+                        <el-input v-model="information.bloodpressureup"></el-input>
+                    </el-form-item>
+                    <el-form-item label="低压" style="float: left">
+                        <el-input v-model.number="information.bloodpressuredown" :min="0" type="number"></el-input>
+                    </el-form-item>
+                    <el-form-item label="血糖" style="float: left">
+                        <el-input v-model="information.bloodsugar"></el-input>
+                    </el-form-item>
+                    <el-form-item label="心率" style="float: left">
+                        <el-input v-model="information.rate"></el-input>
+                    </el-form-item>
+                    <el-form-item label="血脂" style="float: left">
+                        <el-input v-model="information.lipid"></el-input>
+                    </el-form-item>
+                    <el-form-item label="睡眠" style="float: left">
+                        <el-input v-model="information.sleep"></el-input>
+                    </el-form-item>
+                    <el-form-item label="运动" style="float: left">
+                        <el-input v-model="information.exercise"></el-input>
+                    </el-form-item>
+                    <el-form-item label="时间" style="float: left">
+                        <el-input v-model="information.time"></el-input>
+                    </el-form-item>
+                    <el-form-item label="" style="float: left">
+                        <p>注意：心率指每分钟搏动的次数；睡眠指每天的睡眠时间；运动指的是每周运动的时间总和。</p>
+                    </el-form-item>
+                    <el-form-item label="" style="float: left;margin-left: 180px">
+                        <el-button type="primary" @click="add()" style="clear: both;">创建</el-button>
+                        <el-button>取消</el-button>
+                    </el-form-item>
+                    <div style="clear: both;"></div>
+                </el-form>
+
+                <el-tabs v-model="activeTab" >
+                    <el-tab-pane label="表格" name="first">
+                        <div class="form-container">
+                            <el-table
+                                    :data="informations"
+                                    :style="{ width: 'auto' }">
+                                <el-table-column
+                                        prop="time"
+                                        label="日期"
+                                        width="100">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="name"
+                                        label="姓名"
+                                        width="110">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="height"
+                                        label="身高"
+                                        width="110">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="weight"
+                                        label="体重"
+                                        width="110">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="temperature"
+                                        label="体温"
+                                        width="110">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="bloodpressureup"
+                                        label="高压"
+                                        width="110">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="bloodpressuredown"
+                                        label="低压"
+                                        width="110">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="bloodsugar"
+                                        label="血糖"
+                                        width="110">
+                                </el-table-column>
+                                <!--                        &lt;!&ndash;                        <el-table-column&ndash;&gt;-->
+                                <!--                        &lt;!&ndash;                                prop="rate"&ndash;&gt;-->
+                                <!--                        &lt;!&ndash;                                label="心率"&ndash;&gt;-->
+                                <!--                        &lt;!&ndash;                                width="120">&ndash;&gt;-->
+                                <!--                        &lt;!&ndash;                        </el-table-column>&ndash;&gt;-->
+                                <!--                        &lt;!&ndash;                        <el-table-column&ndash;&gt;-->
+                                <!--                        &lt;!&ndash;                                prop="lipid"&ndash;&gt;-->
+                                <!--                        &lt;!&ndash;                                label="血脂"&ndash;&gt;-->
+                                <!--                        &lt;!&ndash;                                width="120">&ndash;&gt;-->
+                                <!--                        &lt;!&ndash;                        </el-table-column>&ndash;&gt;-->
+                                <!--                        &lt;!&ndash;                        <el-table-column&ndash;&gt;-->
+                                <!--                        &lt;!&ndash;                                prop="sleep"&ndash;&gt;-->
+                                <!--                        &lt;!&ndash;                                label="睡眠"&ndash;&gt;-->
+                                <!--                        &lt;!&ndash;                                width="120">&ndash;&gt;-->
+                                <!--                        &lt;!&ndash;                        </el-table-column>&ndash;&gt;-->
+                                <!--                        &lt;!&ndash;                        <el-table-column&ndash;&gt;-->
+                                <!--                        &lt;!&ndash;                                prop="exercise"&ndash;&gt;-->
+                                <!--                        &lt;!&ndash;                                label="运动"&ndash;&gt;-->
+                                <!--                        &lt;!&ndash;                                width="120">&ndash;&gt;-->
+                                <!--                        &lt;!&ndash;                        </el-table-column>&ndash;&gt;-->
+                                <el-table-column
+                                        label="操作"
+                                        width="245px"
+                                        border=false>
+                                    <template slot-scope="scope">
+                                        <el-button
+                                                size="small"
+                                                @click="openDialog(scope.row,'view')">
+                                            查看
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                @click="del(scope.row.id)">
+                                            移除
+                                        </el-button>
+                                        <el-button
+                                                size="small"
+                                                @click="openDialog(scope.row,'edit')">
+                                            修改
+                                        </el-button>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+                        </div>
+                    </el-tab-pane>
+                    <el-tab-pane label="图表" name="second" >
+                        <div class="horizontalTab" id="horizontalTab" >
+                            <ul class="resp-tabs-list list-group" style="margin-top: 5px;">
+                                <li class="list-group-item text-center" @click="showChart('heightWeight')">身高 体重</li>
+                                <li class="list-group-item text-center" @click="showChart('bloodPressure')">高压 低压</li>
+                                <li class="list-group-item text-center" @click="showChart('bloodSugarLipid')">血糖 血脂</li>
+                                <li class="list-group-item text-center" @click="showChart('temperatureHeartRate')">体温 心率</li>
+                                <li class="list-group-item text-center" @click="showChart('activitySleep')">运动 睡眠</li>
+                            </ul>
+                            <div class="resp-tabs-container" >
+                                <!-- ECharts容器 -->
+                                <div id="heightWeightChart" class="bhoechie-tab-content chart-container" style="height: 500px;width: 1000px"></div>
+                                <div id="bloodPressureChart" class="bhoechie-tab-content chart-container" style="height: 500px;width: 1000px"></div>
+                                <div id="bloodSugarLipidChart" class="bhoechie-tab-content chart-container" style="height: 500px;width: 1000px"></div>
+                                <div id="temperatureHeartRateChart" class="bhoechie-tab-content chart-container" style="height: 500px;width: 1000px"></div>
+                                <div id="activitySleepChart" class="bhoechie-tab-content chart-container" style="height: 500px;width: 1000px"></div>
+                                <!-- ... 其他图表容器 ... -->
+                            </div>
+                        </div>
+                    </el-tab-pane>
+
+                </el-tabs>
+            </div>
+        </div>
+        <el-dialog title="收货地址" :visible.sync="dialogFormVisible" width="60%" height="70%"
+                   :before-close="handleClose">
+            <el-form :model="information1" :disabled="dialogMode === 'view'">
+                <el-row>
+                    <el-col :span="6">
+                        <el-form-item label="姓名" :label-width="formLabelWidth">
+                            <el-input v-model="information1.name" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="6">
+                        <el-form-item label="身高" :label-width="formLabelWidth">
+                            <el-input v-model="information1.height" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="6">
+                        <el-form-item label="体重" :label-width="formLabelWidth">
+                            <el-input v-model="information1.weight" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="6">
+                        <el-form-item label="体温" :label-width="formLabelWidth">
+                            <el-input v-model="information1.temperature" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="6">
+                        <el-form-item label="高压" :label-width="formLabelWidth">
+                            <el-input v-model="information1.bloodpressureup" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="6">
+                        <el-form-item label="低压" :label-width="formLabelWidth">
+                            <el-input v-model="information1.bloodpressuredown" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="6">
+                        <el-form-item label="血糖" :label-width="formLabelWidth">
+                            <el-input v-model="information1.bloodsugar" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="6">
+                        <el-form-item label="心率" :label-width="formLabelWidth">
+                            <el-input v-model="information1.rate" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="6">
+                        <el-form-item label="血脂" :label-width="formLabelWidth">
+                            <el-input v-model="information1.lipid" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="6">
+                        <el-form-item label="睡眠" :label-width="formLabelWidth">
+                            <el-input v-model="information1.sleep" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="6">
+                        <el-form-item label="运动" :label-width="formLabelWidth">
+                            <el-input v-model="information1.exercise" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="6">
+                        <el-form-item label="时间" :label-width="formLabelWidth">
+                            <el-input v-model="information1.time" autocomplete="off"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button v-if="dialogMode !== 'view'" @click="dialogFormVisible = false">取 消</el-button>
+                <el-button v-if="dialogMode !== 'view'" type="primary" @click="update()">确 定</el-button>
+            </div>
+        </el-dialog>
+    </div>
+</div>
+
+<script src="js/easy-responsive-tabs.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#horizontalTab').easyResponsiveTabs({
+            type: 'default', //Types: default, vertical, accordion
+            width: 'auto', //auto or any width like 600px
+            fit: true,   // 100% fit in a container
+            closed: 'accordion', // Start closed if in accordion view
+            activate: function (event) { // Callback function if tab is switched
+                var $tab = $(this);
+                var $info = $('#tabInfo');
+                var $name = $('span', $info);
+                $name.text($tab.text());
+                $info.show();
+            }
+        });
+        $('#verticalTab').easyResponsiveTabs({
+            type: 'vertical',
+            width: 'auto',
+            fit: true
+        });
+    });
+</script>
+<script src="js/responsiveslides.min.js"></script>
+<script>
+    // You can also use "$(window).load(function() {"
+    $(function () {
+        // Slideshow 4
+        $("#slider3").responsiveSlides({
+            auto: true,
+            pager: true,
+            nav: false,
+            speed: 500,
+            namespace: "callbacks",
+            before: function () {
+                $('.events').append("<li>before event fired.</li>");
+            },
+            after: function () {
+                $('.events').append("<li>after event fired.</li>");
+            }
+        });
+
+    });
+</script>
+<link rel="stylesheet" href="css/jquery-ui.css"/>
+<script src="js/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $("#datepicker").datepicker();
+    });
+</script>
+<script src="js/SmoothScroll.min.js"></script>
+<script type="text/javascript" src="js/jquery.flexisel.js"></script>
+<script type="text/javascript">
+    $(window).load(function () {
+        $("#flexiselDemo1").flexisel({
+            visibleItems: 3,
+            animationSpeed: 1000,
+            autoPlay: false,
+            autoPlaySpeed: 3000,
+            pauseOnHover: true,
+            enableResponsiveBreakpoints: true,
+            responsiveBreakpoints: {
+                portrait: {
+                    changePoint: 480,
+                    visibleItems: 1
+                },
+                landscape: {
+                    changePoint: 640,
+                    visibleItems: 2
+                },
+                tablet: {
+                    changePoint: 768,
+                    visibleItems: 3
+                }
+            }
+        });
+
+    });
+</script>
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        /*
+            var defaults = {
+            containerID: 'toTop', // fading element id
+            containerHoverID: 'toTopHover', // fading element hover id
+            scrollSpeed: 1200,
+            easingType: 'linear'
+            };
+        */
+
+        $().UItoTop({easingType: 'easeOutQuart'});
+
+    });
+</script>
+<script src="js/scrolling-nav.js"></script>
+</body>
+<script src="js/vue.min.js"></script>
+<!-- import JavaScript -->
+<!-- 引入组件库 -->
+<script src="js/elementui-index.js"></script>
+<script src="js/axios.min.js"></script>
+<script type="module">
+    let v = new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                dialogFormVisible: false,
+                dialogMode: 'view',
+                formLabelWidth: '120px',
+                activeTab: 'first',
+                // 控制图表内部标签页
+                currentChart: 'heightWeight' ,// 初始显示'高血压'子标签页
+                information: {
+                    name: "",
+                    //高压
+                    bloodpressureup: "",
+                    //低压
+                    bloodpressuredown: "",
+                    //血糖
+                    bloodsugar: "",
+                    //身高
+                    height: "",
+                    //体重
+                    weight: "",
+                    //心率
+                    rate: "",
+                    //时间
+                    time: this.getCurrentDate(),
+                    //运动状况
+                    exercise: "",
+                    //血脂
+                    lipid: "",
+                    //睡眠情况
+                    sleep: "",
+                    //体温情况
+                    temperature: "",
+                    //名字
+
+
+                },
+                information1: {
+                    name: "",
+                    //高压
+                    bloodpressureup: "",
+                    //低压
+                    bloodpressuredown: "",
+                    //血糖
+                    bloodsugar: "",
+                    //身高
+                    height: "",
+                    //体重
+                    weight: "",
+                    //心率
+                    rate: "",
+                    //时间
+                    time: this.getCurrentDate(),
+                    //运动状况
+                    exercise: "",
+                    //血脂
+                    lipid: "",
+                    //睡眠情况
+                    sleep: "",
+                    //体温情况
+                    temperature: "",
+                    //名字
+
+
+                },
+                informations: [],
+            }
+        },
+        methods: {
+            login() {
+                axios.get("/userLoginIndex").then(function (response) {
+                    let a = response.data;
+                    console.log(a)
+                    switch (a) {
+                        case 1:
+                            location.href = "/index.html";
+                            break;
+                        case 2:
+                            location.href = "/index2.html";
+                            break;
+                        case 3:
+                            location.href = "/index3.html";
+                            break;
+                        case 0:
+                            alert("请登录");
+                            location.href = "/login.html"
+                            break;
+                        default:
+                            break;
+                    }
+                })
+            }
+            ,
+            add() {
+                axios.post("/information/add", v.information).then(response => {
+                    alert(response.data);
+                    this.fetchData();//自动刷新
+                    // 清空表格或输入表单
+                    this.resetInformation();
+                });
+            },
+            resetInformation() {
+                // 方法1: 如果您想清空整个表格数据
+                this.information = {};
+
+            },
+            fetchData() {
+                axios.get("/information/selectAll").then(response => {
+                    this.informations = response.data;
+                    this.initCharts();
+                }).catch(error => {
+                    console.error("There was an error!", error);
+                });
+            },
+            update() {
+                axios.post("/information/update", this.information1).then(response => {
+                    alert(response.data);
+                    this.dialogFormVisible = false;
+                    this.fetchData(); // 现在`this`正确地指向Vue实例
+                }).catch(error => {
+                    console.error("There was an error!", error);
+                });
+            },
+
+
+            handleClick(row, tab, event) {
+                console.log(row);
+                console.log(tab, event);
+            },
+            openDialog(row, mode) {
+                v.dialogMode = mode;
+                v.dialogFormVisible = true;
+                v.information1 = row;
+                axios.get("/information/selectAllById?id=" + row.id).then(function (response) {
+                    v.information1 = response.data;
+                })
+            },
+            del(id) {
+                // 发送删除请求到后端
+                axios.post("/information/delete?id=" + id)
+                    .then(response => {
+                        // 显示成功消息
+                        alert("删除成功");
+                        // 重新加载数据
+                        this.fetchData();
+                    })
+                    .catch(error => {
+                        // 处理错误情况
+                        console.error("There was an error!", error);
+                    });
+            },
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {
+                    });
+            },
+            getCurrentDate() {
+                let current = new Date();  // 获取当前时间
+                let year = current.getFullYear(); // 获取年份
+                let month = String(current.getMonth() + 1).padStart(2, '0'); // 获取月份，并确保有两位数字
+                let day = String(current.getDate()).padStart(2, '0'); // 获取日期，并确保有两位数字
+                return `${year}-${month}-${day}`; // 格式化时间为 YYYY-MM-DD
+            },
+            // 获取ECharts图表的配置
+            getChartOption(chartType) {
+                // 根据不同的图表类型返回不同的配置
+                switch (chartType) {
+                    case 'heightWeight':
+                        return {
+                            // 配置项示例
+                            title: {
+                                text: '身高体重趋势'
+                            },
+                            tooltip: {},
+                            legend: {
+                                data: ['身高', '体重']
+                            },
+                            xAxis: {
+                                data: this.informations.map(item => item.time)// 假设每个信息都有时间属性
+                            },
+                            yAxis: {},
+                            series: [{
+                                name: '身高',
+                                type: 'line',
+                                data: this.informations.map(item => item.height)  // 假设每个信息都有身高属性
+                            }, {
+                                name: '体重',
+                                type: 'line',
+                                data: this.informations.map(item => item.weight)  // 假设每个信息都有体重属性
+                            }]
+                        };
+                    case 'bloodPressure':
+                        return {
+                            title: {
+                                text: '高压低压趋势'
+                            },
+                            tooltip: {},
+                            legend: {
+                                data: ['高压', '低压']
+                            },
+                            xAxis: {
+                                data: this.informations.map(item => item.time)
+                            },
+                            yAxis: {},
+                            series: [{
+                                name: '高压',
+                                type: 'line',
+                                data: this.informations.map(item => item.bloodpressureup)
+                            }, {
+                                name: '低压',
+                                type: 'line',
+                                data: this.informations.map(item => item.bloodpressuredown)
+                            }]
+                        };
+
+                    case 'bloodSugarLipid':
+                        return {
+                            title: {
+                                text: '血糖血脂趋势'
+                            },
+                            tooltip: {},
+                            legend: {
+                                data: ['血糖', '血脂']
+                            },
+                            xAxis: {
+                                data: this.informations.map(item => item.time)
+                            },
+                            yAxis: {},
+                            series: [{
+                                name: '血糖',
+                                type: 'line',
+                                data: this.informations.map(item => item.bloodsugar)
+                            }, {
+                                name: '血脂',
+                                type: 'line',
+                                data: this.informations.map(item => item.lipid)
+                            }]
+                        };
+
+                    case 'temperatureHeartRate':
+                        return {
+                            title: {
+                                text: '体温心率趋势'
+                            },
+                            tooltip: {},
+                            legend: {
+                                data: ['体温', '心率']
+                            },
+                            xAxis: {
+                                data: this.informations.map(item => item.time)
+                            },
+                            yAxis: {},
+                            series: [{
+                                name: '体温',
+                                type: 'line',
+                                data: this.informations.map(item => item.temperature)
+                            }, {
+                                name: '心率',
+                                type: 'line',
+                                data: this.informations.map(item => item.rate)
+                            }]
+                        };
+
+                    case 'activitySleep':
+                        return {
+                            title: {
+                                text: '运动睡眠趋势'
+                            },
+                            tooltip: {},
+                            legend: {
+                                data: ['运动', '睡眠']
+                            },
+                            xAxis: {
+                                data: this.informations.map(item => item.time)
+                            },
+                            yAxis: {},
+                            series: [{
+                                name: '运动',
+                                type: 'line',
+                                data: this.informations.map(item => item.exercise)
+                            }, {
+                                name: '睡眠',
+                                type: 'line',
+                                data: this.informations.map(item => item.sleep)
+                            }]
+                        };
+
+
+                }
+            },
+            // 初始化图表等其他方法...
+            showChart(chartType) {
+                this.currentChart = chartType; // 可能需要知道当前图表类型
+                // 根据图表类型初始化图表
+                var chartDom = document.getElementById(`${chartType}Chart`);
+                var myChart = echarts.init(chartDom);
+                var option = this.getChartOption(chartType);// 获取相应图表的配置
+                myChart.setOption(option); // 设置图表配置项
+            },
+            fetchInformation(){
+                // 获取初始数据
+                axios.get('/information/selectAll').then((response) => {
+                    this.informations = response.data;
+                });
+
+            },
+
+
+        },
+        created: function () {
+            // 定义self来在回调函数中保持对Vue实例的引用
+            let self = this;
+
+            // 获取初始数据
+            axios.get("/information/selectAll").then(function (response) {
+                self.informations = response.data;
+                // 可能还需要在这里设置information.time为第一条信息的时间
+            }).catch(error => {
+                console.error("There was an error!", error);
+            });
+
+            // 修改为每天更新一次，例如在午夜更新
+            this.timer = setInterval(() => {
+                this.information.time = this.getCurrentDate();
+            }, 24 * 60 * 60 * 1000); // 每24小时更新一次
+        },
+        beforeDestroy: function () {
+            // 清除定时器
+            if (this.timer) {
+                clearInterval(this.timer);
+            }
+        },
+        mounted() {
+            this.fetchInformation();
+            this.showChart('heightWeight')
+        }
+    });
+
+
+</script>
+
+</html>

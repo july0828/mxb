@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>管理医生</title>
+    <!-- Base Styling  -->
+    <link rel="stylesheet" href="static/css/fonts.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="css/elementui-index.css">
+</head>
+
+<body>
+<div id="app">
+    <!--<div id="main-wrapper" class="show">-->
+    <!-- start logo components -->
+    <div class="nav-header">
+        <div class="brand-logo">
+            <a href="index.html"> <img class="logo-tabib" src="static/picture/download.png" alt=""></a>
+            <a href="index.html"><img class="brand-title" src="static/picture/logo.png" alt=""></a>
+        </div>
+    </div>
+    <!-- End logo components -->
+
+
+    <!-- start section sidebar -->
+    <aside class="left-panel nicescroll-box">
+        <nav class="navigation">
+            <ul class="list-unstyled main-menu">
+                <li class="has-submenu">
+                    <a href="#" class="has-arrow mm-collapsed">
+                        <i class="fas fa-user-md"></i>
+                        <span class="nav-label">用户</span>
+                    </a>
+                    <ul class="list-unstyled mm-collapse">
+                        <li><a href="3users-list.html">用户列表</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#" class="has-arrow mm-collapsed">
+                        <i class="fas fa-user-md"></i>
+                        <span class="nav-label">医生</span>
+                    </a>
+                    <ul class="list-unstyled mm-collapse">
+                        <li><a href="3add-doctors.html">添加医生</a></li>
+                        <li><a href="3doctors-list.html">医生列表</a></li>
+                    </ul>
+                </li>
+
+                <li class="has-submenu">
+                    <a href="#" class="has-arrow mm-collapsed">
+                        <i class="fas fa-file-invoice"></i>
+                        <span class="nav-label">知识库</span>
+                    </a>
+                    <ul class="list-unstyled mm-collapse">
+                        <li><a href="3add-announces.html">添加知识库</a></li>
+                        <li><a href="3abouts-list.html">知识库列表</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#" class="has-arrow mm-collapsed">
+                        <i class="fas fa-file-invoice"></i>
+                        <span class="nav-label">帖文</span>
+                    </a>
+                    <ul class="list-unstyled mm-collapse">
+                        <li><a href="3abouts-list.html">贴文列表</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#" class="has-arrow mm-collapsed">
+                        <i class="fas fa-file-invoice"></i>
+                        <span class="nav-label">公告</span>
+                    </a>
+                    <ul class="list-unstyled mm-collapse">
+                        <li><a href="3abouts-list.html">公告列表</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#" class="has-arrow mm-collapsed">
+                        <i class="fas fa-file-invoice"></i>
+                        <span class="nav-label">轮播图</span>
+                    </a>
+                    <ul class="list-unstyled mm-collapse">
+                        <li><a href="3abouts-list.html">添加轮播图</a></li>
+                        <li><a href="3abouts-list.html">轮播图列表</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <!-- End section sidebar -->
+
+
+    <!-- start section header -->
+    <div class="header">
+        <header class="top-head container-fluid">
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="line"></span><span class="line"></span><span class="line"></span>
+                </div>
+                <div class="left-header content-header__menu">
+                    <ul class="list-unstyled">
+                        <li class="nav-link btn">
+                            <a href="#"><i class="far fa-calendar-check"></i> <span> Make an appointment</span></a>
+                        </li>
+                        <li class="nav-link btn">
+                            <a href="#"><i class="far fa-file-alt"></i> <span> Write a prescription</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="fullscreen notification_dropdown">
+                    <div class="full">
+                        <a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()">
+                            <i class="fas fa-expand"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="notification_dropdown">
+                    <div class="cart-wrapper">
+                        <div class="cart-icon">
+                            <a class="cart-control" href="#">
+                                <i class="fas fa-bell"></i>
+                                <div class="pulse-css"></div>
+                            </a>
+                        </div>
+                        <div class="cart-dropdown-form dropdown-container">
+                            <div class="form-content">
+                                <div class="widget-media main-scroll nicescroll-box">
+                                    <ul class="timeline">
+                                        <li>
+                                            <h6 class="mb-0">Notitications</h6>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-panel">
+                                                <div class="media mr-2">
+                                                    <img alt="image" src="static/picture/1.jpg">
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="mb-1 ">Incoming Message</h6>
+                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-panel">
+                                                <div class="media mr-2 media-info">
+                                                    <!-- KG -->
+                                                    <img alt="image" src="static/picture/1.jpg">
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="mb-1">You got a new email</h6>
+                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-panel">
+                                                <div class="media mr-2 media-success">
+                                                    <img alt="image" src="static/picture/1.jpg">
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="mb-1">Hello world!</h6>
+                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-panel">
+                                                <div class="media mr-2">
+                                                    <img alt="image" src="static/picture/1.jpg">
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="mb-1">Beep Boop. Beee...</h6>
+                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-panel">
+                                                <div class="media mr-2 media-danger">
+                                                    <!-- KG -->
+                                                    <img alt="image" src="static/picture/1.jpg">
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="mb-1">Hello world!</h6>
+                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-panel">
+                                                <div class="media mr-2 media-primary">
+                                                    <img alt="image" src="static/picture/1.jpg">
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="mb-1">Incoming Message</h6>
+                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <a class="all-notification btn btn-primary" href="#">
+                                    See all notifications
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="my-account-wrapper">
+                    <div class="account-wrapper">
+                        <div class="account-control">
+                            <a class="login header-profile" href="#" title="Sign in">
+                                <div class="header-info">
+                                    <span>Dr Roberts</span>
+                                    <small>Admin</small>
+                                </div>
+                                <img src="static/picture/client.jpg" alt="people">
+                            </a>
+                            <div class="account-dropdown-form dropdown-container">
+                                <div class="form-content">
+                                    <a href="doctor-settings.html">
+                                        <i class="far fa-user"></i>
+                                        <span class="ml-2">Profile</span>
+                                    </a>
+                                    <a href="#">
+                                        <i class="far fa-envelope"></i>
+                                        <span class="ml-2">Inbox</span>
+                                    </a>
+                                    <a href="page-login.html">
+                                        <i class="fas fa-sign-in-alt"></i>
+                                        <span class="ml-2">Logout </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+    <!-- End section header -->
+
+
+    <!-- start section content -->
+    <div class="content-body">
+        <div class="warper container-fluid">
+            <div class="all-patients main_container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header fix-card">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <h4 class="card-title">医生列表</h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <!--                                <div class="table-responsive">-->
+                                <el-table
+                                        :data="doctorList"
+                                        style="width: 100%">
+                                    <el-table-column
+                                            type="index"
+                                            width="80">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="name"
+                                            label="姓名"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="sex"
+                                            label="性别"
+                                            width="80">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="num"
+                                            label="工号"
+                                            width="100">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="grade"
+                                            label="级别"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="category"
+                                            label="科室"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="phone"
+                                            label="电话号码"
+                                            width="150">
+                                    </el-table-column>
+                                    <el-table-column
+                                            label="照片">
+                                        <template slot-scope="scope">
+                                            <img :src="scope.row.photo" alt="" style="width: 100px;height: 100px">
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                            fixed="right"
+                                            label="操作">
+                                        <template slot-scope="scope">
+                                            <el-button
+                                                    size="small"
+                                                    @click="del(scope.row.id)">
+                                                移除
+                                            </el-button>
+                                            <el-button
+                                                    size="small"
+                                                    @click="openDialog(scope.row)">
+                                                修改
+                                            </el-button>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                                <!--                                </div>-->
+                            </div>
+                            <el-dialog
+                                    title="提示"
+                                    :visible.sync="dialogVisible"
+                                    width="30%"
+                                    :before-close="handleClose">
+                                <el-form ref="form" :model="doctor" label-width="80px">
+                                    <el-form-item label="姓名">
+                                        <el-input v-model="doctor.name"></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="工号">
+                                        <el-input v-model="doctor.num"></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="性别">
+                                        <el-select v-model="doctor.sex" placeholder="请选择性别">
+                                            <el-option label="男" value="男"></el-option>
+                                            <el-option label="女" value="女"></el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                    <el-form-item label="级别">
+                                        <el-select v-model="doctor.grade" placeholder="请选择级别·">
+                                            <el-option label="住院医师" value="住院医师"></el-option>
+                                            <el-option label="主治医师" value="主治医师"></el-option>
+                                            <el-option label="副主任医师" value="副主任医师"></el-option>
+                                            <el-option label="主任医师" value="主任医师"></el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                    <el-form-item label="科室">
+                                        <el-input v-model="doctor.category"></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="电话号码">
+                                        <el-input v-model="doctor.phone"></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="照片">
+                                            <img :src="doctor.photo" alt="" style="width: 200px;height: 200px">
+                                    </el-form-item>
+                                    <el-form-item>
+                                        <el-button @click="dialogVisible = false">取 消</el-button>
+                                        <el-button type="primary" @click="update()">确 定</el-button>
+                                    </el-form-item>
+                                </el-form>
+                            </el-dialog>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End section content -->
+        <!--    </div>-->
+
+    </div>
+</div>
+</body>
+<!-- JQuery v3.5.1 -->
+<script src="static/js/jquery.min.js"></script>
+
+<!-- popper js -->
+<script src="static/js/popper.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="static/js/bootstrap.min.js"></script>
+
+<!-- Moment -->
+<script src="static/js/moment.min.js"></script>
+
+<!-- Date Range Picker -->
+<script src="static/js/daterangepicker.min.js"></script>
+
+<!-- Datatable -->
+<script src="static/js/jquery.dataTables.min.js"></script>
+<script src="static/js/init-tdatatable.js"></script>
+
+<!-- Main Custom JQuery -->
+<script src="static/js/toggleFullScreen.js"></script>
+<script src="static/js/main.js"></script>
+
+<script src="js/vue.min.js"></script>
+<!-- import JavaScript -->
+<!-- 引入组件库 -->
+<script src="js/elementui-index.js"></script>
+<script src="js/axios.min.js"></script>
+<script>
+    let v = new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                dialogVisible: false,
+                doctorList: [],
+                doctor: {
+                    name: "",
+                    num: "",
+                    category: "",
+                    phone: "",
+                    sex: "",
+                    grade: "",
+                    id: "",
+                    photo: ""
+                }
+            }
+
+        },
+        methods: {
+            //点击确定更新按钮 进行数据库更新
+            update() {
+                axios.post("/doctor/update", v.doctor).then(function (response) {
+                    alert(response.data)
+                    v.dialogVisible = false;
+                })
+            },
+            openDialog(doc) {
+                v.doctor = doc;
+                v.dialogVisible = true;
+            },
+            del(id) {
+                axios.post("/doctor/delete?id=" + id).then(function (response) {
+                    alert(response.data)
+                    location.reload();
+                })
+            },
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {});
+            }
+        },
+        //一点开加载所有医生
+        created: function () {
+            // 向后端发送请求获取是否登录，没有登陆跳转到登陆界面
+            axios.get("/userLoginIndex2").then(function (response) {
+                v.user = response.data
+                if (response.data.id == null) {
+                    location.href = "/login.html"
+                }
+            })
+
+            axios.get("/doctor/selectAll").then(function (response) {
+                v.doctorList = response.data
+            })
+        },
+    })
+
+
+</script>
+</html>

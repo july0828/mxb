@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>添加医生信息</title>
+    <!-- Base Styling  -->
+    <link rel="stylesheet" href="static/css/fonts.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="css/elementui-index.css">
+</head>
+
+<body>
+<div id="main-wrapper" class="show">
+
+
+    <!-- start logo components -->
+    <div class="nav-header">
+        <div class="brand-logo">
+            <a href=""> <img class="logo-tabib" src="static/picture/download.png" alt=""></a>
+            <a href=""><img class="brand-title" src="static/picture/logo.png" alt=""></a>
+        </div>
+    </div>
+    <!-- End logo components -->
+
+
+    <!-- start section sidebar -->
+    <aside class="left-panel nicescroll-box">
+        <nav class="navigation">
+            <ul class="list-unstyled main-menu">
+                <li class="has-submenu active">
+                    <a href="">
+                        <i class="fas fa-th-large"></i>
+                        <span class="nav-label">列表</span>
+                    </a>
+                </li>
+                <li class="has-submenu">
+                    <a href="#" class="has-arrow mm-collapsed">
+                        <i class="fas fa-file-invoice"></i>
+                        <span class="nav-label">用户</span>
+                    </a>
+                    <ul class="list-unstyled mm-collapse">
+                        <li><a href="2user-lists.html">用户列表</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <!-- End section sidebar -->
+
+    <div class="header">
+        <header class="top-head container-fluid">
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="line"></span><span class="line"></span><span class="line"></span>
+                </div>
+                <div class="left-header content-header__menu">
+                    <ul class="list-unstyled">
+                        <li class="nav-link btn">
+                            <a href="#"><i class="far fa-calendar-check"></i> <span> Make an appointment</span></a>
+                        </li>
+                        <li class="nav-link btn">
+                            <a href="#"><i class="far fa-file-alt"></i> <span> Write a prescription</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="fullscreen notification_dropdown">
+                    <div class="full">
+                        <a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()">
+                            <i class="fas fa-expand"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="notification_dropdown">
+                    <div class="cart-wrapper">
+                        <div class="cart-icon">
+                            <a class="cart-control" href="#">
+                                <i class="fas fa-bell"></i>
+                                <div class="pulse-css"></div>
+                            </a>
+                        </div>
+                        <div class="cart-dropdown-form dropdown-container">
+                            <div class="form-content">
+                                <div class="widget-media main-scroll nicescroll-box">
+                                    <ul class="timeline">
+                                        <li>
+                                            <h6 class="mb-0">Notitications</h6>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-panel">
+                                                <div class="media mr-2">
+                                                    <img alt="image" src="static/picture/1.jpg">
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="mb-1 ">Incoming Message</h6>
+                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-panel">
+                                                <div class="media mr-2 media-info">
+                                                    <img alt="image" src="static/picture/1.jpg">
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="mb-1">You got a new email</h6>
+                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-panel">
+                                                <div class="media mr-2 media-success">
+                                                    <img alt="image" src="static/picture/1.jpg">
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="mb-1">Hello world!</h6>
+                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-panel">
+                                                <div class="media mr-2">
+                                                    <img alt="image" src="static/picture/1.jpg">
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="mb-1">Beep Boop. Beee...</h6>
+                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-panel">
+                                                <div class="media mr-2 media-danger">
+                                                    <img alt="image" src="static/picture/1.jpg">
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="mb-1">Hello world!</h6>
+                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="timeline-panel">
+                                                <div class="media mr-2 media-primary">
+                                                    <img alt="image" src="static/picture/1.jpg">
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="mb-1">Incoming Message</h6>
+                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <a class="all-notification btn btn-primary" href="#">
+                                    See all notifications
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="my-account-wrapper">
+                    <div class="account-wrapper">
+                        <div class="account-control">
+                            <a class="login header-profile" href="#" title="Sign in">
+                                <div class="header-info">
+                                    <span>Dr Roberts</span>
+                                    <small>Admin</small>
+                                </div>
+                                <img src="static/picture/client.jpg" alt="people">
+                            </a>
+                            <div class="account-dropdown-form dropdown-container">
+                                <div class="form-content">
+                                    <a href="doctor-settings.html">
+                                        <i class="far fa-user"></i>
+                                        <span class="ml-2">Profile</span>
+                                    </a>
+                                    <a href="#">
+                                        <i class="far fa-envelope"></i>
+                                        <span class="ml-2">Inbox</span>
+                                    </a>
+                                    <a href="page-login.html">
+                                        <i class="fas fa-sign-in-alt"></i>
+                                        <span class="ml-2">Logout </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+    <!-- Endheader -->
+
+
+    <!-- start section content -->
+    <div class="content-body">
+        <div class="warper container-fluid">
+            <div class="new-patients main_container">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4 class="text-primary">添加信息</h4>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">首页</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:;">添加信息</a></li>
+                            <a href="login.html">登录</a>
+                        </ol>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">个人信息</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="basic-form">
+                                    <el-form>
+                                        <div class="row">
+                                            <div class="col-xl-4">
+                                                <div class="form-group row widget-3">
+                                                    <div class="col-lg-10">
+
+                                                        <el-upload
+                                                                class="avatar-uploader"
+                                                                action="/common/upload"
+                                                                name="picFile"
+                                                                :limit="1"
+                                                                list-type="picture-card"
+                                                                :on-preview="handlePictureCardPreview"
+                                                                :on-success="handleSuccess"
+                                                                :on-remove="handleRemove"
+                                                                style="margin-left: 80px">
+                                                            <i class="el-icon-plus"></i>
+                                                        </el-upload>
+                                                        <el-dialog :visible.sync="dialogVisible">
+                                                            <img width="100%" :src="dialogImageUrl" alt="">
+                                                        </el-dialog>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="账号"
+                                                           v-model="acount.username">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="工号"
+                                                           v-model="doctor.num">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="科室"
+                                                           v-model="doctor.category">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="电话号码"
+                                                           v-model="doctor.phone">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="姓名"
+                                                           v-model="doctor.name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <el-select v-model="doctor.sex" placeholder="性别" style="width: 380px">
+                                                        <el-option
+                                                                v-for="item in options1"
+                                                                :key="item.value"
+                                                                :label="item.label"
+                                                                :value="item.value">
+                                                        </el-option>
+                                                    </el-select>
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <el-select v-model="doctor.grade" clearable placeholder="级别" style="width: 380px">
+                                                        <el-option
+                                                                v-for="item in options2"
+                                                                :key="item.value"
+                                                                :label="item.label"
+                                                                :value="item.value">
+                                                        </el-option>
+                                                    </el-select>
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-12">
+                                                            <input type="text" class="form-control" placeholder="简介"
+                                                                   style="height: 85px;width: 380px"
+                                                                   v-model="doctor.brief">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-right">
+                                                    <el-button type="submit"
+                                                               style="margin-right: 70px; margin-top: 25px;"
+                                                               class="btn btn-primary float-end" @click="add()">
+                                                        添加
+                                                    </el-button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </el-form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- JQuery v3.5.1 -->
+<script src="static/js/jquery.min.js"></script>
+
+<!-- popper js -->
+<script src="static/js/popper.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="static/js/bootstrap.min.js"></script>
+
+<!-- Moment -->
+<script src="static/js/moment.min.js"></script>
+
+<!-- Date Range Picker -->
+<script src="static/js/daterangepicker.min.js"></script>
+
+<!-- Datatable -->
+<script src="static/js/jquery.dataTables.min.js"></script>
+<script src="static/js/init-tdatatable.js"></script>
+
+<!-- Main Custom JQuery -->
+<script src="static/js/toggleFullScreen.js"></script>
+<script src="static/js/main.js"></script>
+
+</body>
+<script src="js/vue.min.js"></script>
+<!-- import JavaScript -->
+<!-- 引入组件库 -->
+<script src="js/elementui-index.js"></script>
+<script src="js/axios.min.js"></script>
+<script>
+    let v = new Vue({
+        el: '#main-wrapper',
+        data: function () {
+            return {
+                doctor: {
+                    num: "",
+                    category: "",
+                    phone: "",
+                    sex: "",
+                    grade: "",
+                    photo: "",
+                    acountId: "",
+                    brief: "",
+                    name: ""
+                },
+                dialogVisible: false,
+                dialogImageUrl: "",
+                acount: {
+                    username: ""
+                },
+                options1: [{
+                    value: '女',
+                    label: '女'
+                }, {
+                    value: '男',
+                    label: '男'
+                }],
+                options2: [{
+                    value: '住院医师',
+                    label: '住院医师'
+                }, {
+                    value: '主治医师',
+                    label: '主治医师'
+                }, {
+                    value: '副主任医师',
+                    label: '副主任医师'
+                }, {
+                    value: '主任医师',
+                    label: '主任医师'
+                }
+                ]
+            }
+        },
+        methods: {
+            add() {
+                axios.post("/doctor/insert", v.doctor).then(function (response) {
+                    alert(response.data)
+                })
+            },
+            handleRemove(file, fileList) {
+//当点击删除图时方法会执行
+//file代表要删除的文件
+//file.response代表文件上传成功时 服务器响应的数据(文件名)
+
+            },
+            handlePictureCardPreview(file) {
+                this.dialogImageUrl = file.url;
+                this.dialogVisible = true;
+            },
+
+            handleSuccess(response, file, fileList) {
+                v.doctor.photo = file.response
+            },
+
+        },
+        created: function () {
+            axios.get("/userLoginIndex2").then(function (response) {
+                v.user = response.data
+                if (response.data.id == null) {
+                    location.href = "/login.html"
+                }
+            })
+            axios.get("/selectByAcountId").then(function (response) {
+                v.acount.username = response.data.username
+                v.doctor.acountId = response.data.id
+            })
+                // 向后端发送请求获取是否登录，没有登陆跳转到登陆界面
+                axios.get("/userLoginIndex2").then(function (response) {
+                    v.user = response.data
+                    if (response.data.id == null) {
+                        location.href = "/login.html"
+                    }
+                })
+
+            // 向后端发送请求获取是否登录，没有登陆跳转到登陆界面
+            // axios.get("/userLoginIndex2").then(function (response){
+            //     v.user=response.data
+            //     if(response.data==""){
+            //         location.href="/login.html"
+            //     }
+            // })
+
+        }
+    })
+
+
+</script>
+</html>

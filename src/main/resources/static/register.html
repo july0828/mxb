@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <title>注册</title>
+    <!-- Meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords"
+          content="Gadget Sign Up Form Responsive Widget, Audio and Video players, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design"
+    />
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- Meta tags -->
+    <!-- font-awesome icons -->
+    <!--    <link href="css/font-awesome.min.css" rel="stylesheet">-->
+    <!-- //font-awesome icons -->
+    <!--stylesheets-->
+    <link href="css/stylelogin.css" rel='stylesheet' type='text/css' media="all">
+    <!--//style sheet end here-->
+    <link href="//fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/elementui-index.css">
+</head>
+<body>
+<div id="app">
+    <h1 class="error">慢性病管理系统</h1>
+    <!---728x90--->
+    <div class="w3layouts-two-grids">
+        <!---728x90--->
+        <div class="mid-class">
+            <div class="img-right-side">
+                <h3>预防慢性疾病，享受健康人生</h3>
+                <p>着力民生，贴近民众，扎根民间，体现民本，赢得民心，努力实现慢性病防控全民化。</p>
+                <img src="images/b11.png" class="img-fluid" alt="">
+            </div>
+            <div class="txt-left-side" style="height: 550px">
+                <h2> 注册 </h2>
+                <el-form>
+                    <div class="form-left-to-w3l">
+                        <span class="fa fa-user-o" aria-hidden="true"></span>
+                        <el-input type="text" name="username" v-model="acount.username" placeholder="请输入账号"
+                                  required=""></el-input>
+
+                        <div class="clear"></div>
+                    </div>
+                    <div class="form-left-to-w3l ">
+
+                        <span class="fa fa-lock" aria-hidden="true"></span>
+                        <el-input type="password" name="password" v-model="acount.password" placeholder="请输入密码"
+                                  required=""></el-input>
+                        <div class="clear"></div>
+                    </div>
+                    <el-radio-group v-model="acount.role">
+                        <el-radio :label="1">用户</el-radio>
+                        <el-radio :label="2">医生</el-radio>
+                        <el-radio :label="2">管理员</el-radio>
+                    </el-radio-group>
+                    <div class="btnn" style="margin-top: 20px">
+                        <el-button
+                                style="background-color: #67e878;font-weight: 600;color: #fff;cursor: pointer;box-shadow: 0px 0px 8px 0px #60f574;border-radius: 10px;width: 200px;height: 50px;margin-top: 20px"
+                                type="submit;" @click="reg()">注册
+                        </el-button>
+                    </div>
+                </el-form>
+
+                <div class="w3layouts_more-buttn" style="margin-top: 70px">
+                    <h3>若已有账号，
+                        <a href="register.html">登录
+                        </a>
+                    </h3>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <!---728x90--->
+</div>
+</body>
+<script src="js/vue.min.js"></script>
+<!-- import JavaScript -->
+<!-- 引入组件库 -->
+<script src="js/elementui-index.js"></script>
+<script src="js/axios.min.js"></script>
+<script>
+    let v = new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                acount: {
+                    username: "",
+                    password: "",
+                    role:""
+                },
+                radio: 2
+            }
+        },
+        methods: {
+            reg() {
+                axios.post("/insert", v.acount).then(function (response) {
+                    //response 代表的是后端返回的数据
+                    //response.data 代表返回的数据对象
+                    alert(response.data)
+                    location.href="/login.html";
+                })
+            }
+        }
+
+    })
+</script>
+</html>
