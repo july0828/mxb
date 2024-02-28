@@ -38,7 +38,7 @@ public class UserController {
 
 
     //查询用户
-    @RequestMapping("/select")
+    @RequestMapping("/selectAll")
     public List<User> selectAll(){
         return userService.list();
     }
