@@ -56,6 +56,7 @@
             white-space: normal; /* 允许文本换行 */
             line-height: 1.5; /* 调整行高 */
         }
+
         .resp-tabs-container .bhoechie-tab-content {
             display: none;
         }
@@ -167,7 +168,7 @@
                     <div style="clear: both;"></div>
                 </el-form>
 
-                <el-tabs v-model="activeTab" >
+                <el-tabs v-model="activeTab">
                     <el-tab-pane label="表格" name="first">
                         <div class="form-container">
                             <el-table
@@ -258,31 +259,37 @@
                             </el-table>
                         </div>
                     </el-tab-pane>
-                    <el-tab-pane label="图表" name="second" >
-                        <div class="horizontalTab" id="horizontalTab" >
-<!--                            <ul class="resp-tabs-list list-group" style="margin-top: 5px;">-->
-<!--                                <li class="list-group-item text-center" @click="showChart('heightWeight')">身高 体重</li>-->
-<!--                                <li class="list-group-item text-center" @click="showChart('bloodPressure')">高压 低压</li>-->
-<!--                                <li class="list-group-item text-center" @click="showChart('bloodSugarLipid')">血糖 血脂</li>-->
-<!--                                <li class="list-group-item text-center" @click="showChart('temperatureHeartRate')">体温 心率</li>-->
-<!--                                <li class="list-group-item text-center" @click="showChart('activitySleep')">运动 睡眠</li>-->
-<!--                            </ul>-->
+                    <el-tab-pane label="图表" name="second">
+                        <div class="horizontalTab" id="horizontalTab">
+                            <!--                            <ul class="resp-tabs-list list-group" style="margin-top: 5px;">-->
+                            <!--                                <li class="list-group-item text-center" @click="showChart('heightWeight')">身高 体重</li>-->
+                            <!--                                <li class="list-group-item text-center" @click="showChart('bloodPressure')">高压 低压</li>-->
+                            <!--                                <li class="list-group-item text-center" @click="showChart('bloodSugarLipid')">血糖 血脂</li>-->
+                            <!--                                <li class="list-group-item text-center" @click="showChart('temperatureHeartRate')">体温 心率</li>-->
+                            <!--                                <li class="list-group-item text-center" @click="showChart('activitySleep')">运动 睡眠</li>-->
+                            <!--                            </ul>-->
                             <template>
                                 <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
-                                    <el-tab-pane label="身高 体重" name="first" @click="showChart('heightWeight')">
-                                        <div id="heightWeightChart" class="bhoechie-tab-content chart-container" style="height: 500px;width: 1000px"></div>
+                                    <el-tab-pane label="身高 体重" name="first">
+                                        <div id="heightWeightChart"
+                                             class="bhoechie-tab-content chart-container"
+                                             style="height: 500px;width: 1000px"></div>
                                     </el-tab-pane>
-                                    <el-tab-pane label="高压 低压" name="second" @click="showChart('bloodPressure')">
-                                        <div id="bloodPressureChart" class="bhoechie-tab-content chart-container" style="height: 500px;width: 1000px"></div>
+                                    <el-tab-pane label="高压 低压" name="second">
+                                        <div id="bloodPressureChart" class="bhoechie-tab-content chart-container"
+                                             style="height: 500px;width: 1000px"></div>
                                     </el-tab-pane>
-                                    <el-tab-pane label="血糖 血脂" name="third" @click="showChart('bloodSugarLipid')">
-                                        <div id="bloodSugarLipidChart" class="bhoechie-tab-content chart-container" style="height: 500px;width: 1000px"></div>
+                                    <el-tab-pane label="血糖 血脂" name="third">
+                                        <div id="bloodSugarLipidChart" class="bhoechie-tab-content chart-container"
+                                             style="height: 500px;width: 1000px"></div>
                                     </el-tab-pane>
-                                    <el-tab-pane label="体温 心率" name="fourth" @click="showChart('temperatureHeartRate')">
-                                        <div id="temperatureHeartRateChart" class="bhoechie-tab-content chart-container" style="height: 500px;width: 1000px"></div>
+                                    <el-tab-pane label="体温 心率" name="fourth">
+                                        <div id="temperatureHeartRateChart" class="bhoechie-tab-content chart-container"
+                                             style="height: 500px;width: 1000px"></div>
                                     </el-tab-pane>
-                                    <el-tab-pane label="运动 睡眠" name="fifth" @click="showChart('activitySleep')">
-                                        <div id="activitySleepChart" class="bhoechie-tab-content chart-container" style="height: 500px;width: 1000px"></div>
+                                    <el-tab-pane label="运动 睡眠" name="fifth">
+                                        <div id="activitySleepChart" class="bhoechie-tab-content chart-container"
+                                             style="height: 500px;width: 1000px"></div>
                                     </el-tab-pane>
                                 </el-tabs>
                             </template>
@@ -480,7 +487,7 @@
                 activeTab: 'first',
                 activeName: 'first',
                 // 控制图表内部标签页
-                currentChart: 'heightWeight' ,// 初始显示'高血压'子标签页
+                currentChart: 'heightWeight',// 初始显示'高血压'子标签页
                 information: {
                     name: "",
                     //高压
@@ -769,10 +776,15 @@
                 var option = this.getChartOption(chartType);// 获取相应图表的配置
                 myChart.setOption(option); // 设置图表配置项
             },
-            fetchInformation(){
+            fetchInformation() {
                 // 获取初始数据
                 axios.get('/information/selectAll').then((response) => {
                     this.informations = response.data;
+                    this.showChart('heightWeight')
+                    this.showChart('bloodPressure')
+                    this.showChart('bloodSugarLipid')
+                    this.showChart('temperatureHeartRate')
+                    this.showChart('activitySleep')
                 });
 
             },
@@ -803,7 +815,6 @@
         },
         mounted() {
             this.fetchInformation();
-            this.showChart('heightWeight')
         }
     });
 
