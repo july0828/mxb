@@ -133,7 +133,7 @@
                             <h3 style="color: lightgoldenrodyellow">我的预约</h3>
                         </div>
 
-                    </div>
+
                     <div class="appointment-grid">
 
                         <el-row>
@@ -160,6 +160,57 @@
                             </el-col>
                         </el-row>
                     </div>
+                    <div style="margin-top: 20px">
+                        <h3 style="color: lightgoldenrodyellow">我的回复</h3>
+                    </div>
+
+                        <div style="margin-top: 20px">
+                            <h3 style="color: lightgoldenrodyellow">我的治疗方案</h3>
+                        </div>
+
+                    </div>
+<!--                    <el-table-->
+<!--                            :data=""-->
+<!--                            style="width: 100%">-->
+<!--                        <el-table-column-->
+<!--                                type="index"-->
+<!--                                width="80">-->
+<!--                        </el-table-column>-->
+<!--                        <el-table-column-->
+<!--                                prop="title"-->
+<!--                                label="问题"-->
+<!--                                width="200">-->
+<!--                        </el-table-column>-->
+<!--                        <el-table-column-->
+<!--                                prop="content"-->
+<!--                                label="回复"-->
+<!--                                width="300"-->
+<!--                                style="text-decoration: none;color: #333;max-width: 100px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">-->
+<!--                        </el-table-column>-->
+<!--                        <el-table-column-->
+<!--                                prop="content"-->
+<!--                                label="医生"-->
+<!--                                width="300"-->
+<!--                                style="text-decoration: none;color: #333;max-width: 100px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">-->
+<!--                        </el-table-column>-->
+<!--                        <el-table-column-->
+<!--                                prop="content"-->
+<!--                                label="时间"-->
+<!--                                width="300"-->
+<!--                                style="text-decoration: none;color: #333;max-width: 100px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">-->
+<!--                        </el-table-column>-->
+<!--                        <el-table-column-->
+<!--                                fixed="right"-->
+<!--                                label="操作">-->
+<!--                            <template slot-scope="scope">-->
+<!--                                <el-button-->
+<!--                                        size="small"-->
+<!--                                        @click="cancel(scope.row.id)">-->
+<!--                                    取消收藏-->
+<!--                                </el-button>-->
+<!--                            </template>-->
+<!--                        </el-table-column>-->
+<!--                    </el-table>-->
                 </div>
             </div>
         </div>
@@ -303,7 +354,8 @@
                     phone: ""
                 },
                 dialogFormVisible: false,
-                formLabelWidth: '120px'
+                formLabelWidth: '120px',
+
             }
         },
         methods: {
@@ -336,6 +388,12 @@
                     location.reload();
                 })
             },
+            cancel(id){
+                axios.get("/favorite/delete?id=" + id).then(function (response) {
+                    alert(response.data)
+                    location.reload();
+                })
+            },
             handleClose(done) {
                 this.$confirm('确认关闭？')
                     .then(_ => {
@@ -353,7 +411,7 @@
         },
         created: function () {
             axios.get("/userLoginIndex2").then(function (response) {
-                v.user.acountId = response.data.id;
+                v.user.accountId = response.data.id;
                 v.user.name = response.data.username;
                 if (v.user.name == null) {
                     location.href = "login.html"
@@ -361,7 +419,7 @@
                 axios.get("/appointment/selectAllById?userId=" + response.data.id).then(function (response1) {
                     v.appointments = response1.data;
                 })
-                axios.get("/user/selectByAcountId?acountId=" + response.data.id).then(function (response2) {
+                axios.get("/user/selectByAccountId?accountId=" + response.data.id).then(function (response2) {
                     v.user = response2.data;
                 })
             })

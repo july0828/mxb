@@ -32,54 +32,23 @@
             <ul class="list-unstyled main-menu">
                 <li class="has-submenu">
                     <a href="#" class="has-arrow mm-collapsed">
-                        <i class=" "></i>
-                        <span class="nav-label">用户</span>
-                    </a>
-                    <ul class="list-unstyled mm-collapse">
-                        <li><a href="3users-list.html">用户列表</a></li>
-                    </ul>
-                </li>
-                <li class="has-submenu">
-                    <a href="#" class="has-arrow mm-collapsed">
-                        <i class=" "></i>
-                        <span class="nav-label">医生</span>
-                    </a>
-                    <ul class="list-unstyled mm-collapse">
-                        <li><a href="3add-doctors.html">添加医生</a></li>
-                        <li><a href="3doctors-list.html">医生列表</a></li>
-                    </ul>
-                </li>
-
-                <li class="has-submenu">
-                    <a href="#" class="has-arrow mm-collapsed">
                         <i class="  "></i>
-                        <span class="nav-label">知识库</span>
+                        <span class="nav-label">回复</span>
                     </a>
                     <ul class="list-unstyled mm-collapse">
-                        <li><a href="3add-abouts.html">添加知识库</a></li>
-                        <li><a href="3abouts-list.html">知识库列表</a></li>
+                        <li><a href="2reply-lists.html">问题列表</a></li>
                     </ul>
                 </li>
                 <li class="has-submenu">
                     <a href="#" class="has-arrow mm-collapsed">
                         <i class="  "></i>
-                        <span class="nav-label">帖文</span>
+                        <span class="nav-label">治疗方案</span>
                     </a>
                     <ul class="list-unstyled mm-collapse">
-                        <li><a href="3abouts-list.html">贴文列表</a></li>
+                        <li><a href="2add-plans.html">添加治疗方案</a></li>
+                        <li><a href="2plan-lists.html">管理治疗方案</a></li>
                     </ul>
                 </li>
-                <li class="has-submenu">
-                    <a href="#" class="has-arrow mm-collapsed">
-                        <i class="  "></i>
-                        <span class="nav-label">公告</span>
-                    </a>
-                    <ul class="list-unstyled mm-collapse">
-                        <li><a href="3add-announces.html">添加公告</a></li>
-                        <li><a href="3announces-list.html">公告列表</a></li>
-                    </ul>
-                </li>
-
             </ul>
         </nav>
     </aside>
@@ -117,7 +86,7 @@
                         <div class="account-control">
                             <a class="login header-profile" href="#" title="Sign in">
                                 <div class="header-info"  style="width:100px">
-                                    <el-input v-model="manager.username" placeholder="请输入内容"></el-input>
+                                    <el-input v-model="manager.username" placeholder="请输入内容" :style="{textAlign: 'center'}"></el-input>
                                 </div>
 
                             </a>
@@ -144,7 +113,7 @@
                 <div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4 class="text-primary">添加知识库信息</h4>
+                            <h4 class="text-primary">添加信息</h4>
                         </div>
                     </div>
 
@@ -153,7 +122,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">知识库信息</h4>
+                                <h4 class="card-title">治疗方案</h4>
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
@@ -162,6 +131,7 @@
                                             <div class="col-xl-4">
                                                 <div class="form-group row widget-3">
                                                     <div class="col-lg-10">
+
                                                         <el-upload
                                                                 class="avatar-uploader"
                                                                 action="/common/upload"
@@ -183,16 +153,57 @@
                                             </div>
                                             <div class="col-xl-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="标题"
-                                                           style="width: 600px"
-                                                           v-model="about.title">
+                                                    <input type="text" class="form-control" placeholder="账号"
+                                                           v-model="account.username">
                                                 </div>
-                                                <div class="col-lg-12">
-                                                    <textarea type="text" class="form-control" placeholder="内容"
-                                                           style="height: 200px;width: 600px"
-                                                              v-model="about.content"></textarea>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="工号"
+                                                           v-model="doctor.num">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="科室"
+                                                           v-model="doctor.category">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="电话号码"
+                                                           v-model="doctor.phone">
                                                 </div>
                                             </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="姓名"
+                                                           v-model="doctor.name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <el-select v-model="doctor.sex" placeholder="性别" style="width: 380px">
+                                                        <el-option
+                                                                v-for="item in options1"
+                                                                :key="item.value"
+                                                                :label="item.label"
+                                                                :value="item.value">
+                                                        </el-option>
+                                                    </el-select>
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <el-select v-model="doctor.grade" clearable placeholder="级别" style="width: 380px">
+                                                        <el-option
+                                                                v-for="item in options2"
+                                                                :key="item.value"
+                                                                :label="item.label"
+                                                                :value="item.value">
+                                                        </el-option>
+                                                    </el-select>
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-12">
+                                                            <input type="text" class="form-control" placeholder="简介"
+                                                                   style="height: 85px;width: 380px"
+                                                                   v-model="doctor.brief">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="form-group text-right">
                                                     <el-button type="submit"
                                                                style="margin-right: 70px; margin-top: 25px;"
@@ -201,6 +212,7 @@
                                                     </el-button>
                                                 </div>
                                             </div>
+                                        </div>
                                     </el-form>
                                 </div>
                             </div>
@@ -247,13 +259,43 @@
         el: '#main-wrapper',
         data: function () {
             return {
-                about: {
-                    title:"",
-                    content:"",
-                    photo:""
+                doctor: {
+                    num: "",
+                    category: "",
+                    phone: "",
+                    sex: "",
+                    grade: "",
+                    photo: "",
+                    accountId: "",
+                    brief: "",
+                    name: ""
                 },
                 dialogVisible: false,
                 dialogImageUrl: "",
+                account: {
+                    username: ""
+                },
+                options1: [{
+                    value: '女',
+                    label: '女'
+                }, {
+                    value: '男',
+                    label: '男'
+                }],
+                options2: [{
+                    value: '住院医师',
+                    label: '住院医师'
+                }, {
+                    value: '主治医师',
+                    label: '主治医师'
+                }, {
+                    value: '副主任医师',
+                    label: '副主任医师'
+                }, {
+                    value: '主任医师',
+                    label: '主任医师'
+                }
+                ],
                 manager:{
                     username:"",
                 },
@@ -261,7 +303,7 @@
         },
         methods: {
             add() {
-                axios.post("/about/add", v.about).then(function (response) {
+                axios.post("/doctor/insert", v.doctor).then(function (response) {
                     alert(response.data)
                 })
             },
@@ -277,12 +319,11 @@
             },
 
             handleSuccess(response, file, fileList) {
-                v.about.photo = file.response
+                v.doctor.photo = file.response
             },
 
         },
         created: function () {
-            // 向后端发送请求获取是否登录，没有登陆跳转到登陆界面
             axios.get("/userLoginIndex2").then(function (response) {
                 v.user = response.data
                 v.manager.username=response.data.username
@@ -290,6 +331,26 @@
                     location.href = "/login.html"
                 }
             })
+            axios.get("/selectByAccountId").then(function (response) {
+                v.account.username = response.data.username
+                v.doctor.accountId = response.data.id
+            })
+            // 向后端发送请求获取是否登录，没有登陆跳转到登陆界面
+            axios.get("/userLoginIndex2").then(function (response) {
+                v.user = response.data
+                if (response.data.id == null) {
+                    location.href = "/login.html"
+                }
+            })
+
+            // 向后端发送请求获取是否登录，没有登陆跳转到登陆界面
+            // axios.get("/userLoginIndex2").then(function (response){
+            //     v.user=response.data
+            //     if(response.data==""){
+            //         location.href="/login.html"
+            //     }
+            // })
+
         }
     })
 

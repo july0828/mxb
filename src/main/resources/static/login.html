@@ -44,17 +44,17 @@
             </div>
             <div class="txt-left-side" style="height: 550px">
                 <h2> 登录 </h2>
-                <el-form ref="loginForm" :model="acount">
+                <el-form ref="loginForm" :model="account">
                     <div class="form-left-to-w3l">
                         <span class="fa fa-user-o" aria-hidden="true"></span>
-                        <el-input type="text" name="username" v-model="acount.username" placeholder="请输入账号"></el-input>
+                        <el-input type="text" name="username" v-model="account.username" placeholder="请输入账号"></el-input>
                     </div>
                     <div class="form-left-to-w3l">
                         <span class="fa fa-lock" aria-hidden="true"></span>
-                        <el-input type="password" name="password" v-model="acount.password"
+                        <el-input type="password" name="password" v-model="account.password"
                                   placeholder="请输入密码"></el-input>
                     </div>
-                    <el-radio-group v-model="acount.role">
+                    <el-radio-group v-model="account.role">
                         <el-radio :label="1">用户</el-radio>
                         <el-radio :label="2">医生</el-radio>
                         <el-radio :label="3">管理员</el-radio>
@@ -90,14 +90,14 @@
             el: '#app',
             data: function () {
                 return {
-                    acount: {
+                    account: {
                         username: "",
                         password: "",
                         role: ""
                     },
                     methods: {
                         login() {
-                            axios.post("/login", v.acount).then(function (response) {
+                            axios.post("/login", v.account).then(function (response) {
                                 let a = response.data;
                                 switch (a) {
                                     case 1:

@@ -138,17 +138,17 @@
     </div>
 
     <div  id="testimonials">
-            <div  style="height: 50px; padding-top:25px;padding-left: 900px;">
-                <h2>公告</h2>
+            <div  style="height: 50px; padding-top:25px;">
+                <h1 style="color: lightgoldenrodyellow; text-align:center;font-family: 'Cinzel', serif;">公 告</h1>
             </div>
             <div style="height: 300px;margin-left: 500px">
                 <el-row>
                     <el-col  v-for="(announce, index) in announces" style="margin-top: 40px">
-                        <div style="margin-top: 10px; font-size: 20px">
-                            <span>{{ announce.title }}</span>
-                            <span>{{ announce.content }}</span>
-                            <span>{{ announce.time }}</span>
-                            <el-button type="text" @click=" handleSelect(announce.title)">查看</el-button>
+                        <div style="margin-top: 5px; font-size: 18px">
+                            <span style="font-family: 'Cinzel', serif;">{{ announce.title }}</span>
+                            <span style="font-family: 'Cinzel', serif;">{{ announce.content }}</span>
+                            <span style="font-family: 'Cinzel', serif;">{{ announce.time }}</span>
+                            <el-button style="font-family: 'Cinzel', serif;" type="text" @click=" handleSelect(announce.title)">查看</el-button>
                         </div>
                     </el-col>
                 </el-row>

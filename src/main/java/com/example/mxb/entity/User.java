@@ -21,8 +21,8 @@ public class User {
     private String type;
     private String phone;
     private String address;
-    @TableField(value = "acount_id")
-    private Integer acountId;
+    @TableField(value = "account_id")
+    private Integer accountId;
     @TableField(value = "id_card")
     private Integer idCard;
 }

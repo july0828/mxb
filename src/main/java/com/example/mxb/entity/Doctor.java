@@ -20,8 +20,8 @@ public class Doctor {
     private String sex;
     private String phone;
     private String photo;
-    @TableField(value = "acount_id")
-    private Integer acountId;
+    @TableField(value = "account_id")
+    private Integer accountId;
     private String brief;
     private String category;
     private String name;

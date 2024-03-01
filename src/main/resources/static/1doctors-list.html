@@ -88,7 +88,7 @@
                     <h3 style="color: white">医生列表</h3>
                 </div>
                 <el-row>
-                    <el-col :span="8" v-for="(doctor, index) in doctors" :key="doctor.acountId"
+                    <el-col :span="8" v-for="(doctor, index) in doctors" :key="doctor.accountId"
                             style="margin-top: 40px">
                         <el-card :body-style="{ padding: '0px' }" style="margin-left: 30px;height: 450px">
                             <img :src="doctor.photo" class="image" height="300px" width="100px">
@@ -118,7 +118,7 @@
                 :before-close="handleClose">
             <el-form ref="form" :model="question" label-width="80px">
                 <el-form-item label="时间">
-                    <el-input v-model="question.time"></el-input>
+                    <el-date-picker v-model="question.time" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间"></el-date-picker>
                 </el-form-item>
                 <el-form-item label="问题">
                     <el-input type="textarea" v-model="question.content"></el-input>
@@ -249,7 +249,7 @@
                     sex: "",
                     grade: "",
                     photo: "",
-                    acountId: "",
+                    accountId: "",
                     brief: "",
                     name: ""
                 }],
@@ -257,7 +257,8 @@
                     content: "",
                     time: "",
                     userId: "",
-                    doctorNum: ""
+                    doctorNum: "",
+                    name:""
                 }
             }
 
@@ -315,8 +316,11 @@
                     location.href = "login.html"
                 }
                 v.question.accountId = response.data;
+                axios.post("/user/selectByAccountId?accountId=" + v.question.accountId).then(function (response) {
+                    v.question.name = response.data.name;
+                });
                 axios.get("/doctor/selectAll").then(function (response) {
-                    v.doctors = response.data
+                    v.doctors = response.data;
                 })
             })
         }

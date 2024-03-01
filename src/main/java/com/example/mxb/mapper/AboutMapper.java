@@ -2,7 +2,7 @@ package com.example.mxb.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.mxb.entity.About;
-import com.example.mxb.entity.Acount;
+import com.example.mxb.entity.Account;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

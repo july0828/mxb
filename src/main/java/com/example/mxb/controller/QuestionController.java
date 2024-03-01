@@ -1,5 +1,7 @@
 package com.example.mxb.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.example.mxb.entity.Doctor;
 import com.example.mxb.entity.Question;
 import com.example.mxb.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,4 +43,21 @@ public class QuestionController {
         questionService.updateById(question);
         return "修改成功";
     }
+
+    //通过医生工号num查询问题
+    @RequestMapping("/selectByDoctorNum")
+    public Question selectByDoctorNum(Integer doctorNum){
+        LambdaQueryWrapper<Question> wrapper =new LambdaQueryWrapper<>();
+        wrapper.eq(Question::getDoctorNum,doctorNum);
+        System.out.println(doctorNum);
+        return questionService.getOne(wrapper);
+    }
+    @RequestMapping("/selectAllByDoctorNum")
+    public List<Question> selectAllByDoctorNum(Integer doctorNum) {
+        LambdaQueryWrapper<Question> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Question::getDoctorNum, doctorNum);
+        System.out.println(doctorNum);
+        return questionService.list(wrapper);
+    }
+
 }

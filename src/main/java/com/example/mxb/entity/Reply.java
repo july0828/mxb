@@ -12,10 +12,12 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Announce {
-    @TableId(type= IdType.AUTO)
+public class Reply {
+    @TableId(type = IdType.AUTO)
     private Integer id;
-    private String title;
+    private Integer accountId;
+    private Integer doctorNum;
+    private Integer questionId;
     private String content;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date time;

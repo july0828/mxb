@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Update;
 public interface DoctorMapper extends BaseMapper<Doctor> {
 
 @Update("update doctor set num=#{num},grade=#{grade},category=#{category},sex=#{sex},phone=#{phone},photo=#{photo},brief=#{brief},name=#{name} " +
-        "where acount_id=#{acountId}")
+        "where account_id=#{accountId}")
     public void updateDoctor(Doctor doctor);
 }
 

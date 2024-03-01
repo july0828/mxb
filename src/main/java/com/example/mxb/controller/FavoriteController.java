@@ -40,7 +40,7 @@ public class FavoriteController {
         return "修改成功";
     }
 
-    //删除医生
+    //删除
     @RequestMapping("/delete")
     public String delete(@RequestBody Favorite favorite) {
         favoriteService.deleteByAccountIdAndAboutId(favorite.getAccountId(), favorite.getAboutId());

@@ -1,6 +1,6 @@
 package com.example.mxb.filter;
 
-import com.example.mxb.entity.Acount;
+import com.example.mxb.entity.Account;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +18,8 @@ public class MyFilter implements Filter {
         HttpServletRequest st = (HttpServletRequest) req;
         HttpServletResponse sp = (HttpServletResponse) rep;
         HttpSession session = st.getSession();
-        Acount acount=(Acount) session.getAttribute("acount");
-        if (acount != null) {//代表登录过
+        Account account=(Account) session.getAttribute("account");
+        if (account != null) {//代表登录过
             chain.doFilter(req, rep);
         } else {
             sp.sendRedirect("/login.html");//重定向 让客户去指定的路径

@@ -2,7 +2,7 @@ package com.example.mxb.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.mxb.entity.Doctor;
-import com.example.mxb.mapper.AcountMapper;
+import com.example.mxb.mapper.AccountMapper;
 import com.example.mxb.mapper.DoctorMapper;
 import com.example.mxb.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +88,14 @@ public class DoctorController {
     public Doctor selectByNum(Integer num){
         LambdaQueryWrapper<Doctor> wrapper =new LambdaQueryWrapper<>();
         wrapper.eq(Doctor::getNum,num);
+        return doctorService.getOne(wrapper);
+    }
+
+    //通过医生账号id查询医生对象
+    @RequestMapping("/selectByAccountId")
+    public Doctor selectByAccountId(Integer accountId){
+        LambdaQueryWrapper<Doctor> wrapper =new LambdaQueryWrapper<>();
+        wrapper.eq(Doctor::getAccountId,accountId);
         return doctorService.getOne(wrapper);
     }
 }

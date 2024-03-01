@@ -47,7 +47,7 @@
                 <el-form>
                     <div class="form-left-to-w3l">
                         <span class="fa fa-user-o" aria-hidden="true"></span>
-                        <el-input type="text" name="username" v-model="acount.username" placeholder="请输入账号"
+                        <el-input type="text" name="username" v-model="account.username" placeholder="请输入账号"
                                   required=""></el-input>
 
                         <div class="clear"></div>
@@ -55,11 +55,11 @@
                     <div class="form-left-to-w3l ">
 
                         <span class="fa fa-lock" aria-hidden="true"></span>
-                        <el-input type="password" name="password" v-model="acount.password" placeholder="请输入密码"
+                        <el-input type="password" name="password" v-model="account.password" placeholder="请输入密码"
                                   required=""></el-input>
                         <div class="clear"></div>
                     </div>
-                    <el-radio-group v-model="acount.role">
+                    <el-radio-group v-model="account.role">
                         <el-radio :label="1">用户</el-radio>
                         <el-radio :label="2">医生</el-radio>
                         <el-radio :label="2">管理员</el-radio>
@@ -95,7 +95,7 @@
         el: '#app',
         data: function () {
             return {
-                acount: {
+                account: {
                     username: "",
                     password: "",
                     role:""
@@ -105,7 +105,7 @@
         },
         methods: {
             reg() {
-                axios.post("/insert", v.acount).then(function (response) {
+                axios.post("/insert", v.account).then(function (response) {
                     //response 代表的是后端返回的数据
                     //response.data 代表返回的数据对象
                     alert(response.data)

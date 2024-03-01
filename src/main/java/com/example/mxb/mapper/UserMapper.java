@@ -9,6 +9,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
     default User getByAccountId(Integer accountId){
-        return selectOne(new LambdaQueryWrapper<User>().eq(User::getAcountId, accountId));
+        return selectOne(new LambdaQueryWrapper<User>().eq(User::getAccountId, accountId));
     }
 }

@@ -45,10 +45,10 @@ public class UserController {
 
 
     //通过账号id查询用户信息
-    @RequestMapping("/selectByAcountId")
-    public User selectByAcountId(Integer acountId){
+    @RequestMapping("/selectByAccountId")
+    public User selectByAccountId(Integer accountId){
         LambdaQueryWrapper<User> wrapper =new LambdaQueryWrapper<>();
-        wrapper.eq(User::getAcountId,acountId);
+        wrapper.eq(User::getAccountId,accountId);
         return userService.getOne(wrapper);
     }
 

@@ -1,7 +1,7 @@
 package com.example.mxb.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.example.mxb.entity.Acount;
+import com.example.mxb.entity.Account;
 import com.example.mxb.entity.Appointment;
 import com.example.mxb.entity.Doctor;
 import com.example.mxb.mapper.AppointmentMapper;
