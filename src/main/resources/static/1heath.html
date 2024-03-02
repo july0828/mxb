@@ -200,9 +200,16 @@
                                         width="110">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="bloodpressureup"
                                         label="高压"
                                         width="110">
+                                    <template slot-scope="scope">
+                                        <span>{{ scope.row.bloodpressureup }}</span>
+                                        <i class="el-icon-top" style="color: red"
+                                           v-if="scope.row.bloodpressureup > 140"></i>
+                                        <i class="el-icon-bottom" style="color: blue"
+                                           v-if="scope.row.bloodpressureup < 90"></i>
+                                    </template>
+                                    >
                                 </el-table-column>
                                 <el-table-column
                                         prop="bloodpressuredown"
