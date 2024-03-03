@@ -42,5 +42,7 @@ public class Information {
     //名字
     private String name;
 
+    private Integer accountId;
+
 
 }

@@ -31,46 +31,24 @@
             <ul class="list-unstyled main-menu">
                 <li class="has-submenu">
                     <a href="#" class="has-arrow mm-collapsed">
-                        <i class=" "></i>
-                        <span class="nav-label">用户</span>
+                        <i class="  "></i>
+                        <span class="nav-label">回复</span>
                     </a>
                     <ul class="list-unstyled mm-collapse">
-                        <li><a href="3users-list.html">用户列表</a></li>
+                        <li><a href="2add-replys.html">添加回复</a></li>
+                        <li><a href="2replys-list.html">回复列表</a></li>
                     </ul>
                 </li>
-                <li class="has-submenu">
-                    <a href="#" class="has-arrow mm-collapsed">
-                        <i class=" "></i>
-                        <span class="nav-label">医生</span>
-                    </a>
-                    <ul class="list-unstyled mm-collapse">
-                        <li><a href="3add-doctors.html">添加医生</a></li>
-                        <li><a href="3doctors-list.html">医生列表</a></li>
-                    </ul>
-                </li>
-
                 <li class="has-submenu">
                     <a href="#" class="has-arrow mm-collapsed">
                         <i class="  "></i>
-                        <span class="nav-label">知识库</span>
+                        <span class="nav-label">治疗方案</span>
                     </a>
                     <ul class="list-unstyled mm-collapse">
-                        <li><a href="3add-abouts.html">添加知识库</a></li>
-                        <li><a href="3abouts-list.html">知识库列表</a></li>
+                        <li><a href="2add-plans.html">添加治疗方案</a></li>
+                        <li><a href="2plans-list.html">管理治疗方案</a></li>
                     </ul>
                 </li>
-
-                <li class="has-submenu">
-                    <a href="#" class="has-arrow mm-collapsed">
-                        <i class="  "></i>
-                        <span class="nav-label">公告</span>
-                    </a>
-                    <ul class="list-unstyled mm-collapse">
-                        <li><a href="3add-announces.html">添加公告</a></li>
-                        <li><a href="3announces-list.html">公告列表</a></li>
-                    </ul>
-                </li>
-
             </ul>
         </nav>
     </aside>
@@ -102,17 +80,17 @@
                                 <div class="pulse-css"></div>
                             </a>
                         </div>
-                        <div class="cart-dropdown-form dropdown-container">
-                        </div>
+
                     </div>
                 </div>
                 <div class="my-account-wrapper">
                     <div class="account-wrapper">
                         <div class="account-control">
                             <a class="login header-profile" href="#" title="Sign in">
-                                <div class="header-info"  style="width:100px">
+                                <div class="header-info" style="width: 100px">
                                     <el-input v-model="manager.username" placeholder="请输入内容"></el-input>
                                 </div>
+
                             </a>
                             <div class="account-dropdown-form dropdown-container">
                                 <div class="form-content">
@@ -140,7 +118,7 @@
                             <div class="card-header fix-card">
                                 <div class="row">
                                     <div class="col-8">
-                                        <h4 class="card-title">用户列表</h4>
+                                        <h4 class="card-title">添加回复</h4>
                                     </div>
                                 </div>
                             </div>
@@ -148,35 +126,26 @@
                             <div class="card-body">
                                 <!--                                <div class="table-responsive">-->
                                 <el-table
-                                        :data="userList"
+                                        :data="questionList"
                                         style="width: 100%">
                                     <el-table-column
                                             type="index"
-                                            width="100">
+                                            width="80">
                                     </el-table-column>
                                     <el-table-column
                                             prop="name"
-                                            label="姓名"
-                                            width="150">
-                                    </el-table-column>
-                                    <el-table-column
-                                            prop="type"
-                                            label="证件类型"
-                                            width="150">
-                                    </el-table-column>
-                                    <el-table-column
-                                            prop="idCard"
-                                            label="证件号码"
+                                            label="名字"
                                             width="200">
                                     </el-table-column>
                                     <el-table-column
-                                            prop="phone"
-                                            label="电话号码"
-                                            width="200">
+                                            prop="content"
+                                            label="内容"
+                                            width="600"
+                                            style="text-decoration: none;color: #333;max-width: 100px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">
                                     </el-table-column>
                                     <el-table-column
-                                            prop="address"
-                                            label="地址"
+                                            prop="time"
+                                            label="时间"
                                             width="200">
                                     </el-table-column>
                                     <el-table-column
@@ -185,13 +154,8 @@
                                         <template slot-scope="scope">
                                             <el-button
                                                     size="small"
-                                                    @click="del(scope.row.id)">
-                                                移除
-                                            </el-button>
-                                            <el-button
-                                                    size="small"
-                                                    @click="openDialog(scope.row)">
-                                                修改
+                                                    @click="openDialog(scope.row.id)">
+                                                回复
                                             </el-button>
                                         </template>
                                     </el-table-column>
@@ -199,36 +163,20 @@
                                 <!--                                </div>-->
                             </div>
                             <el-dialog
-                                    title="提示"
+                                    title="问题列表"
                                     :visible.sync="dialogVisible"
                                     width="30%"
                                     :before-close="handleClose">
-                                <el-form ref="form" :model="user" label-width="80px">
-                                    <el-form-item label="姓名">
-                                        <el-input v-model="user.name"></el-input>
+                                <el-form ref="form" :model="reply" label-width="80px">
+                                    <el-form-item label="回复内容">
+                                        <el-input type="textarea" v-model="reply.replyContent"></el-input>
                                     </el-form-item>
-                                    <el-form-item label="年龄">
-                                        <el-input v-model="user.age"></el-input>
-                                    </el-form-item>
-                                    <el-form-item label="证件类型">
-                                        <el-select v-model="user.type" placeholder="请选择证件类型">
-                                            <el-option label="居民身份证" value="居民身份证"></el-option>
-                                            <el-option label="护照" value="护照"></el-option>
-                                            <el-option label="其他" value="其他"></el-option>
-                                        </el-select>
-                                    </el-form-item>
-                                    <el-form-item label="证件号码">
-                                        <el-input v-model="user.idCard"></el-input>
-                                    </el-form-item>
-                                    <el-form-item label="电话号码">
-                                        <el-input v-model="user.phone"></el-input>
-                                    </el-form-item>
-                                    <el-form-item label="地址">
-                                        <el-input v-model="user.address"></el-input>
+                                    <el-form-item label="回复时间">
+                                        <el-date-picker v-model="reply.replyTime" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间"></el-date-picker>
                                     </el-form-item>
                                     <el-form-item>
                                         <el-button @click="dialogVisible = false">取 消</el-button>
-                                        <el-button type="primary" @click="update()">确 定</el-button>
+                                        <el-button type="primary" @click="answer()">确 定</el-button>
                                     </el-form-item>
                                 </el-form>
                             </el-dialog>
@@ -277,65 +225,95 @@
         data: function () {
             return {
                 dialogVisible: false,
-                userList: [],
-                user: {
+                questionList: [],
+                question: {
                     name: "",
-                    age: "",
-                    type: "",
-                    phone: "",
-                    id: "",
-                    address:"",
-                    idCard:""
+                    content: "",
+                    time: ""
                 },
-                manager:{
-                    username:"",
+                reply: {
+                    accountId:"",
+                    doctorNum: "",//避免同名
+                    doctorName: "",
+                    questionContent: "",
+                    questionTime: "",
+                    replyContent: "",
+                    replyTime: "",
+                    questionId:"",
+                    userName:""
                 },
+                manager: {
+                    username: "",
+                },
+                doctor: {
+                    accountId: "",
+                    num: ""
+                }
             }
 
         },
         methods: {
             //点击确定更新按钮 进行数据库更新
-            update() {
-                axios.post("/user/update", v.user).then(function (response) {
-                    alert(response.data)
-                    v.dialogVisible = false;
-                })
-            },
-            openDialog(user) {
-                v.user = user;
+            openDialog(questionId) {
+                v.reply.questionId = questionId;
                 v.dialogVisible = true;
-            },
-            del(id) {
-                if (confirm("确定要删除吗？")) {
-                    axios.post("/user/delete?id=" + id).then(function (response) {
-                        alert(response.data)
-                        location.reload();
-                    })
-                }
             },
             handleClose(done) {
                 this.$confirm('确认关闭？')
                     .then(_ => {
                         done();
                     })
-                    .catch(_ => {});
+                    .catch(_ => {
+                    });
+            },
+            answer() {
+                axios.get("/userLoginIndex2").then(function (response) {
+                    v.user = response.data
+                    v.doctor.accountId = response.data.id;
+                    v.manager.username = response.data.username;
+                    //通过登录获取的医生账号id查询医生对象
+                    axios.post("/doctor/selectByAccountId?accountId=" + v.doctor.accountId).then(function (response1) {
+                        //查询出医生工号
+                        v.doctor.num = response1.data.num;
+                        v.reply.doctorNum=response1.data.num;
+                        v.reply.doctorName=response1.data.name;
+                        //通过医生工号去查询对应的问题表
+                        axios.post("/question/selectByquestionId?questionId=" + v.reply.questionId).then(function (response2) {
+                            v.reply.questionContent=response2.data.content;
+                            v.reply.questionTime=response2.data.time;
+                            v.reply.accountId=response2.data.accountId;
+                            v.reply.userName=response2.data.name;
+
+                            axios.post("/reply/insert", v.reply).then(function (response) {
+                                alert(response.data)
+                                v.dialogVisible = false;
+                            })
+                        })
+                    })
+
+                })
             }
         },
         //一点开加载所有医生
         created: function () {
-            // 向后端发送请求获取是否登录，没有登陆跳转到登陆界面
             axios.get("/userLoginIndex2").then(function (response) {
                 v.user = response.data
-                v.manager.username=response.data.username
+                v.doctor.accountId = response.data.id;
+                v.manager.username = response.data.username;
+                //通过登录获取的医生账号id查询医生对象
+                axios.post("/doctor/selectByAccountId?accountId=" + v.doctor.accountId).then(function (response1) {
+                    //查询出医生工号
+                    v.doctor.num = response1.data.num;
+                    //通过医生工号去查询对应的问题表
+                    axios.post("/question/selectAllByDoctorNum?doctorNum=" + v.doctor.num).then(function (response2) {
+                        v.questionList = response2.data;
+                    })
+                })
                 if (response.data.id == null) {
                     location.href = "/login.html"
                 }
             })
-
-            axios.get("/user/selectAll").then(function (response) {
-                v.userList = response.data
-            })
-        },
+        }
     })
 
 

@@ -87,8 +87,7 @@
                         <div class="account-control">
                             <a class="login header-profile" href="#" title="Sign in">
                                 <div class="header-info" style="width:100px">
-                                    <el-input v-model="manager.username" placeholder="请输入内容"
-                                              :style="{textAlign: 'center'}"></el-input>
+                                    <el-input v-model="manager.username" placeholder="请输入内容"></el-input>
                                 </div>
 
                             </a>
@@ -115,7 +114,7 @@
                 <div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4 class="text-primary">添加治疗方案</h4>
+                            <h4 class="text-primary">添加信息</h4>
                         </div>
                     </div>
 
@@ -124,38 +123,76 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">治疗方案</h4>
+                                <h4 class="card-title">回复列表</h4>
                             </div>
                             <div class="card-body">
                                 <div class="basic-form">
-                                    <el-form>
-                                        <div class="row">
-                                            <div class="col-xl-6">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="用户账号" style="width: 400px"
-                                                           v-model="plan.userId">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="用户名字" style="width: 400px"
-                                                           v-model="plan.userName">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="治疗方案"
-                                                           style="height: 85px;width: 400px"
-                                                           v-model="plan.content">
-                                                </div>
-                                                <div class="form-group">
-                                                    <el-date-picker v-model="plan.time" type="datetime"
-                                                                    value-format="yyyy-MM-dd HH:mm:ss"
-                                                                    placeholder="选择日期时间"></el-date-picker>
-                                                </div>
-                                                <div class="form-group">
-                                                    <el-button type="primary" style="margin-right: 70px; margin-top: 5px;" @click="add()">立即创建</el-button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </el-form>
+                                    <el-table
+                                            :data="replyList"
+                                            style="width: 100%">
+                                        <el-table-column
+                                                type="index"
+                                                width="50">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="userName"
+                                                label="姓名"
+                                                width="100">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="questionContent"
+                                                label="问题"
+                                                width="300">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="replyContent"
+                                                label="回复"
+                                                width="300">
+                                        </el-table-column>
+                                        <el-table-column
+                                                prop="replyTime"
+                                                label="回复时间"
+                                                width="200">
+                                        </el-table-column>
+                                        <el-table-column
+                                                fixed="right"
+                                                label="操作">
+                                            <template slot-scope="scope">
+                                                <el-button
+                                                        size="small"
+                                                        @click="del(scope.row.id)">
+                                                    移除
+                                                </el-button>
+                                                <el-button
+                                                        size="small"
+                                                        @click="openDialog(scope.row)">
+                                                    修改
+                                                </el-button>
+                                            </template>
+                                        </el-table-column>
+                                    </el-table>
                                 </div>
+                                <el-dialog
+                                        title="回复"
+                                        :visible.sync="dialogVisible"
+                                        width="30%"
+                                        :before-close="handleClose">
+                                    <el-form ref="form" :model="reply" label-width="80px">
+                                        <el-form-item label="回复内容">
+                                        <textarea v-model="reply.replyContent"
+                                                  style="height:200px;width: 100%;border: 1px solid #DCDFE6;color: #606266;"></textarea>
+                                        </el-form-item>
+                                        <el-form-item label="时间">
+                                            <el-date-picker v-model="reply.replyTime" type="datetime"
+                                                            value-format="yyyy-MM-dd HH:mm:ss"
+                                                            placeholder="选择日期时间"></el-date-picker>
+                                        </el-form-item>
+                                        <el-form-item>
+                                            <el-button @click="dialogVisible = false">取 消</el-button>
+                                            <el-button type="primary" @click="update()">确 定</el-button>
+                                        </el-form-item>
+                                    </el-form>
+                                </el-dialog>
                             </div>
                         </div>
                     </div>
@@ -200,43 +237,73 @@
         el: '#main-wrapper',
         data: function () {
             return {
-                plan: {
-                    doctorNum: "",
-                    doctorName: "",
-                    content: "",
-                    time: "",
-                    userId: "",
-                    userName: ""
+                dialogVisible: false,
+                replyList: [],
+                account: {
+                    username: ""
+                },
+                doctor: {
+                    num: "",
+                    accountId: ""
                 },
                 manager: {
                     username: "",
                 },
-                doctor: {
-                    accountId: ""
+                reply: {
+                    replyContent: "",
+                    replyTime: ""
+
                 }
             }
         },
         methods: {
-            add() {
-                axios.post("/plan/insert", v.plan).then(function (response) {
+            del(id) {
+                if (confirm("确定要删除吗？")) {
+                    axios.post("/reply/delete?id=" + id).then(function (response) {
+                        alert(response.data)
+                        location.reload();
+                    })
+                }
+            },
+            update() {
+                axios.post("/reply/update", v.reply).then(function (response) {
                     alert(response.data)
+                    v.dialogVisible = false;
                 })
-            }
+            },
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {
+                    });
+            },
+            openDialog(reply) {
+                v.reply = reply;
+                v.dialogVisible = true;
+            },
+
         },
         created: function () {
             axios.get("/userLoginIndex2").then(function (response) {
                 v.doctor.accountId = response.data.id
                 v.manager.username = response.data.username
-                //通过登录的id查询医生工号、医生姓名
                 axios.post("/doctor/selectByAccountId?accountId=" + v.doctor.accountId).then(function (response1) {
                     //查询出医生工号
-                    v.plan.doctorNum = response1.data.num;
-                    v.plan.doctorName = response1.data.name;
+                    v.doctor.num = response1.data.num;
+                    //通过医生工号查询回复
+                    axios.post("/reply/selectByNum?num=" + v.doctor.num).then(function (response2) {
+                        v.replyList = response2.data;
+                    })
                 })
                 if (response.data.id == null) {
                     location.href = "/login.html"
                 }
+
             })
+
+
         }
     })
 

@@ -1,9 +1,7 @@
 package com.example.mxb.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.example.mxb.entity.About;
-import com.example.mxb.entity.Appointment;
-import com.example.mxb.entity.Information;
+import com.example.mxb.entity.*;
 import com.example.mxb.mapper.InformationMapper;
 import com.example.mxb.service.InformationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +30,12 @@ public class InformationController {
         return "添加成功";
     }
 
-    //查询所有知识
-    @RequestMapping("/selectAll")
-    public List<Information> selectAll(){
-        List<Information> informations=informationService.list();
-        return informations;
-    }
+    // //查询所有知识
+    // @RequestMapping("/selectAll")
+    // public List<Information> selectAll(){
+    //     List<Information> informations=informationService.list();
+    //     return informations;
+    // }
 
     @RequestMapping("/selectAllById")
     public Information selectAllById(@RequestParam Integer id) {
@@ -50,10 +48,18 @@ public class InformationController {
         return "修改成功";
     }
 
-    //删除医生
+    //删除
     @RequestMapping("/delete")
     public String delete(Integer id){
         informationService.removeById(id);
         return "删除成功";
     }
+
+    @RequestMapping("/selectAllByAccountId")
+    public List<Information> selectAllByAccountId(Integer accountId) {
+        LambdaQueryWrapper<Information> wrapper =new LambdaQueryWrapper<>();
+        wrapper.eq(Information::getAccountId,accountId);
+        return informationService.list(wrapper);
+    }
+
 }

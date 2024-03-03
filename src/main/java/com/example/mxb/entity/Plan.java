@@ -15,8 +15,9 @@ public class Plan {
     private Integer id;
     @TableField(value = "user_id")
     private Integer userId;
-    @TableField(value = "doctor_id")
-    private Integer doctorId;
+    private String userName;
+    @TableField(value = "doctor_num")
+    private Integer doctorNum;
     private String doctorName;
     private String content;
     private String time;

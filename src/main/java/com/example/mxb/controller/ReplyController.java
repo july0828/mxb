@@ -1,5 +1,8 @@
 package com.example.mxb.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.example.mxb.entity.Appointment;
+import com.example.mxb.entity.Question;
 import com.example.mxb.entity.Reply;
 import com.example.mxb.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +43,19 @@ public class ReplyController {
     public String update(@RequestBody Reply reply){
         replyService.updateById(reply);
         return "修改成功";
+    }
+
+    @RequestMapping("/selectByNum")
+    public List<Reply> selectAllByDoctorNum(Integer num) {
+        LambdaQueryWrapper<Reply> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Reply::getDoctorNum, num);
+        return replyService.list(wrapper);
+    }
+
+    @RequestMapping("/selectAllById")
+    public List<Reply> selectAllById(Integer userId) {
+        LambdaQueryWrapper<Reply> wrapper =new LambdaQueryWrapper<>();
+        wrapper.eq(Reply::getAccountId,userId);
+        return replyService.list(wrapper);
     }
 }

@@ -1496,24 +1496,24 @@ i.fa.fa-linkedin{
 .appointment input[type="text"],.appointment input[type="email"] ,.appointment input[type="tel"]  {
     display: inline-block;
     background: none;
-    border: 1px solid #A3A1A1;
+    border: 1px solid whitesmoke;
     width: 100%;
     margin: 0 0 15px;
     outline: none;
     font-size: 13px;
-    color: #9C9C9C;
+    color: black;
     font-weight: 500;
     padding: 8px 13px 8px 13px;
 }
 .appointment textarea {
     background: none;
-    border: 1px solid #A3A1A1;
+    border: 1px solid #f5f7fa;
     width: 100%;
     display: block;
     height: 120px;
     outline: none;
     font-size: 13px;
-    color: #9B9B9C;
+    color: #f5f7fa;
     font-weight: 500;
     margin: 0 0 15px;
     padding: 10px 15px 10px 15px;
@@ -1537,7 +1537,7 @@ i.fa.fa-linkedin{
     background: transparent;
 }
 .inner {
-    border: 1px solid rgba(233, 30, 99, 0.66);
+    border: 1px solid #dcdfe6;
     padding: 20px;
     height: 480px;
 }

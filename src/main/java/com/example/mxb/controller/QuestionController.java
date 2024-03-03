@@ -56,8 +56,15 @@ public class QuestionController {
     public List<Question> selectAllByDoctorNum(Integer doctorNum) {
         LambdaQueryWrapper<Question> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Question::getDoctorNum, doctorNum);
-        System.out.println(doctorNum);
         return questionService.list(wrapper);
+    }
+
+    //通过问题id查询问题
+    @RequestMapping("/selectByquestionId")
+    public Question selectByquestionId(Integer questionId){
+        LambdaQueryWrapper<Question> wrapper =new LambdaQueryWrapper<>();
+        wrapper.eq(Question::getId,questionId);
+        return questionService.getOne(wrapper);
     }
 
 }

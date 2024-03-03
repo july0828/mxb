@@ -83,68 +83,68 @@
             <div class="appointment" style="padding-top: 0px">
                 <div class="container">
                     <div class="w3ls-heading">
-                        <h3 style="color: antiquewhite">体检预约</h3>
+                        <h3 style="color: antiquewhite">预约</h3>
                     </div>
                     <div class="appointment-grid">
-                        <div class="col-md-4 appointmnet-left">
+                        <div class="col-md-6 appointmnet-left">
                             <div class="inner">
                                 <div class="working-grid">
-                                    <h4>工作时间</h4>
-                                    <p><i class="fa fa-calendar" aria-hidden="true"></i><span>周一至周五</span> <span
-                                            class="span1">9:00 am to 6:30 pm</span></p>
-                                    <p><i class="fa fa-calendar" aria-hidden="true"></i><span>周天</span> <span
-                                            class="span1">9:00 am to 10:00 pm</span></p>
-                                    <p><i class="fa fa-calendar" aria-hidden="true"></i><span>周六</span> <span
-                                            class="span1">10:00 am to 1:00 pm</span></p>
+                                    <h4 style="color: antiquewhite;font-family: 'Cinzel', serif;">工作时间</h4>
+                                    <p><span>周一至周五</span> <span
+                                            class="span1" style="color: antiquewhite;font-family: 'Cinzel', serif;">9:00 am to 6:30 pm</span>
+                                    </p>
+                                    <p><span>周天</span> <span
+                                            class="span1" style="color: antiquewhite;font-family: 'Cinzel', serif;">9:00 am to 10:00 pm</span>
+                                    </p>
+                                    <p><span>周六</span> <span
+                                            class="span1" style="color: antiquewhite;font-family: 'Cinzel', serif;">10:00 am to 1:00 pm</span>
+                                    </p>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="working-grid1">
-                                    <h4>For help</h4>
-                                    <h5><i class="fa fa-pencil" aria-hidden="true"></i>For appointment fill the form
-                                    </h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet
-                                        ultrices odio.</p>
+                                    <p style="color: antiquewhite;font-size: 20px;font-family: 'Cinzel', serif;">
+                                        亲爱的大家，我想提醒大家在工作时间外尽量不要预约医生。在工作时间内，我们都需要专注于工作任务，以提高效率和工作质量。谢谢大家的理解和配合！希望我们能够共同努力，保持工作效率和健康的平衡。</p>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
                         </div>
-                        <div class="col-md-4 appointmnet-middle">
+                        <div class="col-md-6 appointmnet-middle">
                             <div class="inner">
-                                <h4>预约体检</h4>
-                                <form  name="row" method="post" class="register">
-                                    <input type="text" name="name" id="name" placeholder="名字" required=""
-                                           v-model="appointment.name">
-                                    <div class="block">
-                                        <el-date-picker
-                                                v-model="appointment.time"
-                                                style="width:310px"
-                                                format="yyyy-MM-dd HH:mm:ss"
-                                                type="datetime"
-                                                placeholder="选择日期">
-                                        </el-date-picker>
-                                    </div>
-
-                                    <textarea onfocus="this.value = '';"
-                                              onblur="if (this.value == '') {this.value = 'Enter Message...';}"
-                                              v-model="appointment.content">Enter Message...</textarea>
+                                <h4 style="color: antiquewhite;font-family: 'Cinzel', serif;">预约表单</h4>
+                                <el-form ref="form" :model="appointment" label-width="50px">
+                                    <el-form-item label="名字" style="margin-bottom: 0px;">
+                                        <el-input v-model="appointment.name" ></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="时间" style="margin-bottom: 0px;" >
+                                        <el-date-picker type="date"  v-model="appointment.time"></el-date-picker>
+                                    </el-form-item>
+                                    <el-form-item label="内容" style="margin-bottom: 0px;">
+                                        <el-input type="textarea" onfocus="this.value = '';"
+                                                  onblur="if (this.value == '') {this.value = 'Enter Message...';}"
+                                                  v-model="appointment.content">Enter Message...
+                                        </el-input>
+                                    </el-form-item>
                                     <el-button type="submit"
                                                style="outline: none;transition: .5s all;
      margin-left: 100px; color: #fff;
      margin-top: 30px;
-     border: 1px solid rgba(233, 30, 99, 0.66);
+     border: 1px solid #fff;
     font-size: 15px;
     text-transform: capitalize;
-    background: rgba(233, 30, 99, 0.66);
+    background: #fff;
+    color:#bacbe6;
     padding: 0.5em 0.8em;
     text-decoration: none;
     height: 50px;
     width: 90px;
     letter-spacing: 1px;"
+
                                                @click="insert()">
                                         提交
                                     </el-button>
-                                </form>
+                                </el-form>
+
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -236,14 +236,14 @@
         </script>
         <script type="text/javascript" src="js/move-top.js"></script>
         <script type="text/javascript" src="js/easing.js"></script>
-<!--        <script type="text/javascript">-->
-<!--            jQuery(document).ready(function ($) {-->
-<!--                $(".scroll").click(function (event) {-->
-<!--                    event.preventDefault();-->
-<!--                    $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);-->
-<!--                });-->
-<!--            });-->
-<!--        </script>-->
+        <!--        <script type="text/javascript">-->
+        <!--            jQuery(document).ready(function ($) {-->
+        <!--                $(".scroll").click(function (event) {-->
+        <!--                    event.preventDefault();-->
+        <!--                    $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);-->
+        <!--                });-->
+        <!--            });-->
+        <!--        </script>-->
         <script type="text/javascript">
             $(document).ready(function () {
                 /*
@@ -278,8 +278,8 @@
                     time: "",
                     content: "",
                     doctorName: "",
-                    doctorNum:"",
-                    userId:""
+                    doctorNum: "",
+                    userId: ""
                 },
             }
         },
@@ -307,22 +307,23 @@
                     }
                 })
             },
-            insert(){
-                axios.post("/appointment/insert",v.appointment).then(function (response) {
-                        alert(response.data)
+            insert() {
+                axios.post("/appointment/insert", v.appointment).then(function (response) {
+                    alert(response.data)
                 })
-            }
+            },
+
         },
         created: function () {
             let doctorNum = location.search.split("=")[1]//接收医生列表传来的num
-            axios.post("/doctor/selectByNum?num="+doctorNum).then(function (response) {//查询医生姓名
+            axios.post("/doctor/selectByNum?num=" + doctorNum).then(function (response) {//查询医生姓名
                 v.appointment.doctorName = response.data.name;//返回医生姓名
             })
 
             axios.post("/userLogin").then(function (response) {//判断是否登录
                 if (response.data === 0) {//未登录
                     alert("请登录")
-                    location.href="login.html"
+                    location.href = "login.html"
                 }
                 v.appointment.userId = response.data;//返回userid的值
                 v.appointment.doctorNum = doctorNum;

@@ -121,42 +121,56 @@
                 <div class="w3ls-heading">
                     <h3 style="color: floralwhite">健康评估</h3>
                 </div>
-                <el-form ref="information" :model="information" label-width="80px">
+                <el-form ref="information" :model="information" label-width="80px" style="margin-top: 20px">
                     <el-form-item label="姓名" style="float: left">
-                        <el-input v-model.number="information.name"></el-input>
+                        <el-input v-model.number="information.name" style="width: 160px;"></el-input>
                     </el-form-item>
                     <el-form-item label="身高" style="float: left">
-                        <el-input v-model.number="information.height" :min="0" type="number"></el-input>
+                        <el-input v-model.number="information.height" :min="0" type="number"
+                                  style="width: 160px;"></el-input>
+                        <span>cm</span>
                     </el-form-item>
                     <el-form-item label="体重" style="float: left">
-                        <el-input v-model.number="information.weight" :min="0" type="number"></el-input>
+                        <el-input v-model.number="information.weight" :min="0" type="number"
+                                  style="width: 160px;"></el-input>
+                        <span>kg</span>
                     </el-form-item>
                     <el-form-item label="体温" style="float: left">
-                        <el-input v-model.number="information.temperature" :min="0" type="number"></el-input>
+                        <el-input v-model.number="information.temperature" :min="0" type="number"
+                                  style="width: 160px;"></el-input>
+                        <span>°C</span>
                     </el-form-item>
                     <el-form-item label="高压" style="float: left">
-                        <el-input v-model="information.bloodpressureup"></el-input>
+                        <el-input v-model="information.bloodpressureup" style="width: 110px;"></el-input>
+                        <span>mmHg</span>
                     </el-form-item>
                     <el-form-item label="低压" style="float: left">
-                        <el-input v-model.number="information.bloodpressuredown" :min="0" type="number"></el-input>
+                        <el-input v-model.number="information.bloodpressuredown" :min="0" type="number"
+                                  style="width: 135px;"></el-input>
+                        <span>mmHg</span>
                     </el-form-item>
                     <el-form-item label="血糖" style="float: left">
-                        <el-input v-model="information.bloodsugar"></el-input>
+                        <el-input v-model="information.bloodsugar" style="width: 132px;"></el-input>
+                        <span>mg/dL</span>
                     </el-form-item>
                     <el-form-item label="心率" style="float: left">
-                        <el-input v-model="information.rate"></el-input>
+                        <el-input v-model="information.rate" style="width: 160px;"></el-input>
+                        <span>bpm</span>
                     </el-form-item>
                     <el-form-item label="血脂" style="float: left">
-                        <el-input v-model="information.lipid"></el-input>
+                        <el-input v-model="information.lipid" style="width: 115px;"></el-input>
+                        <span>mg/dL</span>
                     </el-form-item>
                     <el-form-item label="睡眠" style="float: left">
-                        <el-input v-model="information.sleep"></el-input>
+                        <el-input v-model="information.sleep" style="width: 150px;"></el-input>
+                        <span>小时</span>
                     </el-form-item>
                     <el-form-item label="运动" style="float: left">
-                        <el-input v-model="information.exercise"></el-input>
+                        <el-input v-model="information.exercise" style="width: 145px;"></el-input>
+                        <span>小时</span>
                     </el-form-item>
                     <el-form-item label="时间" style="float: left">
-                        <el-input v-model="information.time"></el-input>
+                        <el-input v-model="information.time" style="width: 160px;"></el-input>
                     </el-form-item>
                     <el-form-item label="" style="float: left">
                         <p>注意：心率指每分钟搏动的次数；睡眠指每天的睡眠时间；运动指的是每周运动的时间总和。</p>
@@ -172,93 +186,102 @@
                     <el-tab-pane label="表格" name="first">
                         <div class="form-container">
                             <el-table
-                                    :data="informations"
-                                    :style="{ width: 'auto' }">
+                                    :data="informationList"
+                                    :style="{ width: 'auto' }"
+                            >
                                 <el-table-column
                                         prop="time"
                                         label="日期"
-                                        width="100">
-                                </el-table-column>
+                                        width="100"
+                                ></el-table-column>
                                 <el-table-column
                                         prop="name"
                                         label="姓名"
-                                        width="110">
-                                </el-table-column>
+                                        width="97"
+                                ></el-table-column>
                                 <el-table-column
                                         prop="height"
-                                        label="身高"
-                                        width="110">
-                                </el-table-column>
+                                        label="身高（cm）"
+                                        width="97"
+                                ></el-table-column>
                                 <el-table-column
-                                        prop="weight"
-                                        label="体重"
-                                        width="110">
+                                        label="体重（kg）"
+                                        width="97"
+                                >
+                                    <template slot-scope="scope">
+                                        <span>{{ scope.row.weight }}</span>
+                                        <i class="el-icon-top" style="color: red" v-if="calculateBMI(scope.row.weight, scope.row.height) > 25"></i>
+                                        <i class="el-icon-bottom" style="color: blue" v-if="calculateBMI(scope.row.weight, scope.row.height) < 18.5"></i>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                         prop="temperature"
-                                        label="体温"
-                                        width="110">
+                                        label="体温（°C）"
+                                        width="97"
+                                >
+                                    <template slot-scope="scope">
+                                        <span>{{ scope.row.temperature }}</span>
+                                        <i class="el-icon-warning" style="color: red" v-if="scope.row.temperature > 37.5"></i>
+                                        <i class="el-icon-check" style="color: green" v-else></i>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
-                                        label="高压"
-                                        width="110">
+                                        label="高压（mmHg）"
+                                        width="123"
+                                >
                                     <template slot-scope="scope">
                                         <span>{{ scope.row.bloodpressureup }}</span>
-                                        <i class="el-icon-top" style="color: red"
-                                           v-if="scope.row.bloodpressureup > 140"></i>
-                                        <i class="el-icon-bottom" style="color: blue"
-                                           v-if="scope.row.bloodpressureup < 90"></i>
+                                        <i class="el-icon-top" style="color: red" v-if="scope.row.bloodpressureup > 140"></i>
+                                        <i class="el-icon-bottom" style="color: blue" v-if="scope.row.bloodpressureup < 90"></i>
+                                        <i class="el-icon-check" style="color: green" v-else></i>
                                     </template>
-                                    >
                                 </el-table-column>
                                 <el-table-column
                                         prop="bloodpressuredown"
-                                        label="低压"
-                                        width="110">
+                                        label="低压（mmHg）"
+                                        width="123"
+                                >
+                                    <template slot-scope="scope">
+                                        <span>{{ scope.row.bloodpressuredown }}</span>
+                                        <i class="el-icon-top" style="color: red" v-if="scope.row.bloodpressuredown > 90"></i>
+                                        <i class="el-icon-bottom" style="color: blue" v-if="scope.row.bloodpressuredown < 60"></i>
+                                        <i class="el-icon-check" style="color: green" v-else></i>
+                                    </template>
                                 </el-table-column>
                                 <el-table-column
                                         prop="bloodsugar"
-                                        label="血糖"
-                                        width="110">
+                                        label="血糖（mmol/L）"
+                                        width="130"
+                                >
+                                    <template slot-scope="scope">
+                                        <span>{{ scope.row.bloodsugar }}</span>
+                                        <i class="el-icon-top" style="color: red" v-if="scope.row.bloodsugar > 7"></i>
+                                        <i class="el-icon-minus" style="color: green" v-else-if="scope.row.bloodsugar >= 3.9"></i>
+                                        <i class="el-icon-check" style="color: blue" v-else></i>
+                                    </template>
                                 </el-table-column>
-                                <!--                        &lt;!&ndash;                        <el-table-column&ndash;&gt;-->
-                                <!--                        &lt;!&ndash;                                prop="rate"&ndash;&gt;-->
-                                <!--                        &lt;!&ndash;                                label="心率"&ndash;&gt;-->
-                                <!--                        &lt;!&ndash;                                width="120">&ndash;&gt;-->
-                                <!--                        &lt;!&ndash;                        </el-table-column>&ndash;&gt;-->
-                                <!--                        &lt;!&ndash;                        <el-table-column&ndash;&gt;-->
-                                <!--                        &lt;!&ndash;                                prop="lipid"&ndash;&gt;-->
-                                <!--                        &lt;!&ndash;                                label="血脂"&ndash;&gt;-->
-                                <!--                        &lt;!&ndash;                                width="120">&ndash;&gt;-->
-                                <!--                        &lt;!&ndash;                        </el-table-column>&ndash;&gt;-->
-                                <!--                        &lt;!&ndash;                        <el-table-column&ndash;&gt;-->
-                                <!--                        &lt;!&ndash;                                prop="sleep"&ndash;&gt;-->
-                                <!--                        &lt;!&ndash;                                label="睡眠"&ndash;&gt;-->
-                                <!--                        &lt;!&ndash;                                width="120">&ndash;&gt;-->
-                                <!--                        &lt;!&ndash;                        </el-table-column>&ndash;&gt;-->
-                                <!--                        &lt;!&ndash;                        <el-table-column&ndash;&gt;-->
-                                <!--                        &lt;!&ndash;                                prop="exercise"&ndash;&gt;-->
-                                <!--                        &lt;!&ndash;                                label="运动"&ndash;&gt;-->
-                                <!--                        &lt;!&ndash;                                width="120">&ndash;&gt;-->
-                                <!--                        &lt;!&ndash;                        </el-table-column>&ndash;&gt;-->
                                 <el-table-column
                                         label="操作"
                                         width="245px"
-                                        border=false>
+                                        border=false
+                                >
                                     <template slot-scope="scope">
                                         <el-button
                                                 size="small"
-                                                @click="openDialog(scope.row,'view')">
+                                                @click="openDialog(scope.row,'view')"
+                                        >
                                             查看
                                         </el-button>
                                         <el-button
                                                 size="small"
-                                                @click="del(scope.row.id)">
+                                                @click="del(scope.row.id)"
+                                        >
                                             移除
                                         </el-button>
                                         <el-button
                                                 size="small"
-                                                @click="openDialog(scope.row,'edit')">
+                                                @click="openDialog(scope.row,'edit')"
+                                        >
                                             修改
                                         </el-button>
                                     </template>
@@ -305,8 +328,7 @@
                 </el-tabs>
             </div>
         </div>
-        <el-dialog title="收货地址" :visible.sync="dialogFormVisible" width="60%" height="70%"
-                   :before-close="handleClose">
+        <el-dialog title="健康信息" :visible.sync="dialogFormVisible" width="60%" height="70%" :before-close="handleClose">
             <el-form :model="information1" :disabled="dialogMode === 'view'">
                 <el-row>
                     <el-col :span="6">
@@ -315,53 +337,80 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
-                        <el-form-item label="身高" :label-width="formLabelWidth">
+                        <el-form-item label="身高(cm)" :label-width="formLabelWidth">
                             <el-input v-model="information1.height" autocomplete="off"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
-                        <el-form-item label="体重" :label-width="formLabelWidth">
+                        <el-form-item label="体重(kg)" :label-width="formLabelWidth">
                             <el-input v-model="information1.weight" autocomplete="off"></el-input>
+                            <i class="el-icon-top" :style="{ color: 'red' }" v-if="calculateBMI(information1.height, information1.weight) < 18.5"></i>
+                            <i class="el-icon-minus" :style="{ color: 'green' }" v-else-if="calculateBMI(information1.height, information1.weight) >= 18.5 && calculateBMI(information1.height, information1.weight) <= 24.9"></i>
+                            <i class="el-icon-check" :style="{ color: 'blue' }" v-else></i>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
-                        <el-form-item label="体温" :label-width="formLabelWidth">
+                        <el-form-item label="体温(°C)" :label-width="formLabelWidth">
                             <el-input v-model="information1.temperature" autocomplete="off"></el-input>
+                            <i class="el-icon-top" :style="{ color: 'red' }" v-if="information1.temperature > 37.5"></i>
+                            <i class="el-icon-minus" :style="{ color: 'green' }" v-else-if="information1.temperature >= 36.0 && information1.temperature <= 37.5"></i>
+                            <i class="el-icon-check" :style="{ color: 'blue' }" v-else></i>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
-                        <el-form-item label="高压" :label-width="formLabelWidth">
+                        <el-form-item label="高压(mmHg)" :label-width="formLabelWidth">
                             <el-input v-model="information1.bloodpressureup" autocomplete="off"></el-input>
+                            <i class="el-icon-top" :style="{ color: 'red' }" v-if="information1.bloodpressureup >= 140"></i>
+                            <i class="el-icon-minus" :style="{ color: 'green' }" v-else-if="information1.bloodpressureup >= 120 && information1.bloodpressureup < 140"></i>
+                            <i class="el-icon-check" :style="{ color: 'blue' }" v-else></i>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
-                        <el-form-item label="低压" :label-width="formLabelWidth">
+                        <el-form-item label="低压(mmHg)" :label-width="formLabelWidth">
                             <el-input v-model="information1.bloodpressuredown" autocomplete="off"></el-input>
+                            <i class="el-icon-top" :style="{ color: 'red' }" v-if="information1.bloodpressuredown >= 90"></i>
+                            <i class="el-icon-minus" :style="{ color: 'green' }" v-else-if="information1.bloodpressuredown >= 80 && information1.bloodpressuredown < 90"></i>
+                            <i class="el-icon-check" :style="{ color: 'blue' }" v-else></i>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
-                        <el-form-item label="血糖" :label-width="formLabelWidth">
+                        <el-form-item label="血糖(mmol/L)" :label-width="formLabelWidth">
                             <el-input v-model="information1.bloodsugar" autocomplete="off"></el-input>
+                            <i class="el-icon-top" :style="{ color: 'red' }" v-if="information1.bloodsugar > 7"></i>
+                            <i class="el-icon-minus" :style="{ color: 'green' }" v-else-if="information1.bloodsugar >= 3.9 && information1.bloodsugar <= 7"></i>
+                            <i class="el-icon-check" :style="{ color: 'blue' }" v-else></i>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
-                        <el-form-item label="心率" :label-width="formLabelWidth">
+                        <el-form-item label="心率(bpm)" :label-width="formLabelWidth">
                             <el-input v-model="information1.rate" autocomplete="off"></el-input>
+                            <i class="el-icon-top" :style="{ color: 'red' }" v-if="information1.rate > 100"></i>
+                            <i class="el-icon-minus" :style="{ color: 'green' }" v-else-if="information1.rate >= 60 && information1.rate <= 100"></i>
+                            <i class="el-icon-check" :style="{ color: 'blue' }" v-else></i>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
-                        <el-form-item label="血脂" :label-width="formLabelWidth">
+                        <el-form-item label="血脂(mmol/L)" :label-width="formLabelWidth">
                             <el-input v-model="information1.lipid" autocomplete="off"></el-input>
+                            <i class="el-icon-top" :style="{ color: 'red' }" v-if="information1.lipid > 5.2"></i>
+                            <i class="el-icon-minus" :style="{ color: 'green' }" v-else-if="information1.lipid >= 3.9 && information1.lipid <= 5.2"></i>
+                            <i class="el-icon-check" :style="{ color: 'blue' }" v-else></i>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
-                        <el-form-item label="睡眠" :label-width="formLabelWidth">
+                        <el-form-item label="睡眠(小时)" :label-width="formLabelWidth">
                             <el-input v-model="information1.sleep" autocomplete="off"></el-input>
+                            <i class="el-icon-top" :style="{ color: 'red' }" v-if="information1.sleep < 6"></i>
+                            <i class="el-icon-minus" :style="{ color: 'green' }" v-else-if="information1.sleep >= 6 && information1.sleep <= 8"></i>
+                            <i class="el-icon-check" :style="{ color: 'blue' }" v-else></i>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
-                        <el-form-item label="运动" :label-width="formLabelWidth">
+                        <el-form-item label="运动(分钟)" :label-width="formLabelWidth">
                             <el-input v-model="information1.exercise" autocomplete="off"></el-input>
+                            <i class="el-icon-top" :style="{ color: 'red' }" v-if="information1.exercise < 150"></i>
+                            <i class="el-icon-minus" :style="{ color: 'green' }" v-else-if="information1.exercise >= 150 && information1.exercise <= 300"></i>
+                            <i class="el-icon-check" :style="{ color: 'blue' }" v-else></i>
                         </el-form-item>
                     </el-col>
                     <el-col :span="6">
@@ -520,10 +569,12 @@
                     //体温情况
                     temperature: "",
                     //名字
+                    accountId: ""
 
 
                 },
                 information1: {
+                    accountId: "",
                     name: "",
                     //高压
                     bloodpressureup: "",
@@ -551,7 +602,7 @@
 
 
                 },
-                informations: [],
+                informationList: [],
             }
         },
         methods: {
@@ -593,12 +644,21 @@
 
             },
             fetchData() {
-                axios.get("/information/selectAll").then(response => {
-                    this.informations = response.data;
-                    this.initCharts();
-                }).catch(error => {
-                    console.error("There was an error!", error);
-                });
+                // 获取初始数据
+                axios.get("/userLoginIndex2").then(function (response1) {
+                    v.information.accountId = response1.data.id;
+                    if (response1.data.id == null) {
+                        location.href = "/login.html"
+                    }
+                    // 定义self来在回调函数中保持对Vue实例的引用
+                    let self = this;
+
+                    // 获取初始数据
+                    axios.get("/information/selectAllByAccountId?accountId=" + v.information.accountId).then(function (response) {
+                        self.informationList = response.data;
+                        this.initCharts();
+                    })
+                })
             },
             update() {
                 axios.post("/information/update", this.information1).then(response => {
@@ -665,17 +725,17 @@
                                 data: ['身高', '体重']
                             },
                             xAxis: {
-                                data: this.informations.map(item => item.time)// 假设每个信息都有时间属性
+                                data: this.informationList.map(item => item.time)// 假设每个信息都有时间属性
                             },
                             yAxis: {},
                             series: [{
                                 name: '身高',
                                 type: 'line',
-                                data: this.informations.map(item => item.height)  // 假设每个信息都有身高属性
+                                data: this.informationList.map(item => item.height)  // 假设每个信息都有身高属性
                             }, {
                                 name: '体重',
                                 type: 'line',
-                                data: this.informations.map(item => item.weight)  // 假设每个信息都有体重属性
+                                data: this.informationList.map(item => item.weight)  // 假设每个信息都有体重属性
                             }]
                         };
                     case 'bloodPressure':
@@ -688,17 +748,17 @@
                                 data: ['高压', '低压']
                             },
                             xAxis: {
-                                data: this.informations.map(item => item.time)
+                                data: this.informationList.map(item => item.time)
                             },
                             yAxis: {},
                             series: [{
                                 name: '高压',
                                 type: 'line',
-                                data: this.informations.map(item => item.bloodpressureup)
+                                data: this.informationList.map(item => item.bloodpressureup)
                             }, {
                                 name: '低压',
                                 type: 'line',
-                                data: this.informations.map(item => item.bloodpressuredown)
+                                data: this.informationList.map(item => item.bloodpressuredown)
                             }]
                         };
                     case 'bloodSugarLipid':
@@ -711,17 +771,17 @@
                                 data: ['血糖', '血脂']
                             },
                             xAxis: {
-                                data: this.informations.map(item => item.time)
+                                data: this.informationList.map(item => item.time)
                             },
                             yAxis: {},
                             series: [{
                                 name: '血糖',
                                 type: 'line',
-                                data: this.informations.map(item => item.bloodsugar)
+                                data: this.informationList.map(item => item.bloodsugar)
                             }, {
                                 name: '血脂',
                                 type: 'line',
-                                data: this.informations.map(item => item.lipid)
+                                data: this.informationList.map(item => item.lipid)
                             }]
                         };
                     case 'temperatureHeartRate':
@@ -734,17 +794,17 @@
                                 data: ['体温', '心率']
                             },
                             xAxis: {
-                                data: this.informations.map(item => item.time)
+                                data: this.informationList.map(item => item.time)
                             },
                             yAxis: {},
                             series: [{
                                 name: '体温',
                                 type: 'line',
-                                data: this.informations.map(item => item.temperature)
+                                data: this.informationList.map(item => item.temperature)
                             }, {
                                 name: '心率',
                                 type: 'line',
-                                data: this.informations.map(item => item.rate)
+                                data: this.informationList.map(item => item.rate)
                             }]
                         };
                     case 'activitySleep':
@@ -757,17 +817,17 @@
                                 data: ['运动', '睡眠']
                             },
                             xAxis: {
-                                data: this.informations.map(item => item.time)
+                                data: this.informationList.map(item => item.time)
                             },
                             yAxis: {},
                             series: [{
                                 name: '运动',
                                 type: 'line',
-                                data: this.informations.map(item => item.exercise)
+                                data: this.informationList.map(item => item.exercise)
                             }, {
                                 name: '睡眠',
                                 type: 'line',
-                                data: this.informations.map(item => item.sleep)
+                                data: this.informationList.map(item => item.sleep)
                             }]
                         };
 
@@ -784,46 +844,77 @@
                 myChart.setOption(option); // 设置图表配置项
             },
             fetchInformation() {
+                const self = this; // 保存对Vue实例的引用
+
                 // 获取初始数据
-                axios.get('/information/selectAll').then((response) => {
-                    this.informations = response.data;
-                    this.showChart('heightWeight')
-                    this.showChart('bloodPressure')
-                    this.showChart('bloodSugarLipid')
-                    this.showChart('temperatureHeartRate')
-                    this.showChart('activitySleep')
+                axios.get("/userLoginIndex2").then(function (response1) {
+                    self.information.accountId = response1.data.id;
+                    if (response1.data.id == null) {
+                        location.href = "/login.html"
+                    }
+                    // 获取初始数据
+                    axios.get("/information/selectAllByAccountId?accountId=" + self.information.accountId).then(function (response) {
+                        self.informationList = response.data;
+                        self.showChart('heightWeight');
+                        self.showChart('bloodPressure');
+                        self.showChart('bloodSugarLipid');
+                        self.showChart('temperatureHeartRate');
+                        self.showChart('activitySleep');
+                    })
+                })
+            },
+            calculateBMI(weight, height) {
+                // Convert height to meters
+                var heightInMeters = height / 100;
+
+                // Calculate BMI
+                var bmi = weight / (heightInMeters * heightInMeters);
+
+                // Return the calculated BMI
+                return bmi;
+            }
+        },
+
+        created: function () {
+            axios.get("/userLoginIndex2").then(function (response1) {
+                v.information.accountId = response1.data.id;
+                if (response1.data.id == null) {
+                    location.href = "/login.html"
+                }
+                // 定义self来在回调函数中保持对Vue实例的引用
+
+
+                // 获取初始数据
+                axios.get("/information/selectAllByAccountId?accountId=" + v.information.accountId).then(function (response) {
+                    v.informationList = response.data;
+                }).catch(error => {
+                    console.error("There was an error!", error);
                 });
 
-            },
+
+            })
+            // // 定义self来在回调函数中保持对Vue实例的引用
+            // let self = this;
+            //
+            // // 获取初始数据
+            // axios.get("/information/selectAll").then(function (response) {
+            //     self.informationList = response.data;
+            // }).catch(error => {
+            //     console.error("There was an error!", error);
+            // });
+            //
+            // // 修改为每天更新一次，例如在午夜更新
+            // this.timer = setInterval(() => {
+            //     this.information.time = this.getCurrentDate();
+            // }, 24 * 60 * 60 * 1000); // 每24小时更新一次
+            // // 向后端发送请求获取是否登录，没有登陆跳转到登陆界面
 
 
-        },
-        created: function () {
-            // 定义self来在回调函数中保持对Vue实例的引用
-            let self = this;
-
-            // 获取初始数据
-            axios.get("/information/selectAll").then(function (response) {
-                self.informations = response.data;
-            }).catch(error => {
-                console.error("There was an error!", error);
-            });
-
-            // 修改为每天更新一次，例如在午夜更新
-            this.timer = setInterval(() => {
-                this.information.time = this.getCurrentDate();
-            }, 24 * 60 * 60 * 1000); // 每24小时更新一次
-        },
-        beforeDestroy: function () {
-            // 清除定时器
-            if (this.timer) {
-                clearInterval(this.timer);
-            }
         },
         mounted() {
             this.fetchInformation();
         }
-    });
+    })
 
 
 </script>

@@ -1,6 +1,8 @@
 package com.example.mxb.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.mxb.entity.Plan;
+import com.example.mxb.entity.Reply;
 import com.example.mxb.service.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,5 +42,19 @@ public class PlanController {
     public String update(@RequestBody Plan plan){
         planService.updateById(plan);
         return "修改成功";
+    }
+
+    @RequestMapping("/selectByNum")
+    public List<Plan> selectAllByDoctorNum(Integer num) {
+        LambdaQueryWrapper<Plan> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Plan::getDoctorNum, num);
+        return planService.list(wrapper);
+    }
+
+    @RequestMapping("/selectAllById")
+    public List<Plan> selectAllById(Integer userId) {
+        LambdaQueryWrapper<Plan> wrapper =new LambdaQueryWrapper<>();
+        wrapper.eq(Plan::getUserId,userId);
+        return planService.list(wrapper);
     }
 }

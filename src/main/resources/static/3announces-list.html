@@ -59,15 +59,7 @@
                         <li><a href="3abouts-list.html">知识库列表</a></li>
                     </ul>
                 </li>
-                <li class="has-submenu">
-                    <a href="#" class="has-arrow mm-collapsed">
-                        <i class="  "></i>
-                        <span class="nav-label">帖文</span>
-                    </a>
-                    <ul class="list-unstyled mm-collapse">
-                        <li><a href="3abouts-list.html">贴文列表</a></li>
-                    </ul>
-                </li>
+
                 <li class="has-submenu">
                     <a href="#" class="has-arrow mm-collapsed">
                         <i class="  "></i>
@@ -211,7 +203,7 @@
                                         style="height:200px;width: 100%;border: 1px solid #DCDFE6;color: #606266;"></textarea>
                                     </el-form-item>
                                     <el-form-item label="时间">
-                                        <el-input v-model="announce.time"></el-input>
+                                        <el-date-picker v-model="announce.time" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间"></el-date-picker>
                                     </el-form-item>
                                     <el-form-item>
                                         <el-button @click="dialogVisible = false">取 消</el-button>
@@ -289,9 +281,11 @@
                 v.dialogVisible=true;
             },
             del(id){
-                axios.post("/announce/delete?id="+id).then(function (response) {
-                    alert(response.data)
-                })
+                if (confirm("确定要删除吗？")) {
+                    axios.post("/announce/delete?id=" + id).then(function (response) {
+                        alert(response.data)
+                    })
+                }
             },
             handleClose(done) {
                 this.$confirm('确认关闭？')
