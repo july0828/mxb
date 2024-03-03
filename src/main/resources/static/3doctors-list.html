@@ -231,7 +231,16 @@
                                         <el-input v-model="doctor.phone"></el-input>
                                     </el-form-item>
                                     <el-form-item label="照片">
-                                            <img :src="doctor.photo" alt="" style="width: 200px;height: 200px">
+                                        <el-upload
+                                                class="avatar-uploader"
+                                                action="http://localhost:8080/file/upload"
+                                                :show-file-list="false"
+                                                :on-success="handleAvatarSuccess"
+                                                :on-remove="handleRemove"
+                                                :before-upload="beforeAvatarUpload">
+                                            <img v-if="photo" :src="photo" class="avatar">
+                                            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                        </el-upload>
                                     </el-form-item>
                                     <el-form-item>
                                         <el-button @click="dialogVisible = false">取 消</el-button>
@@ -278,11 +287,37 @@
 <!-- 引入组件库 -->
 <script src="js/elementui-index.js"></script>
 <script src="js/axios.min.js"></script>
+<style>
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+    .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+    }
+    .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+    }
+    .avatar {
+        width: 178px;
+        height: 178px;
+        display: block;
+    }
+</style>
 <script>
     let v = new Vue({
         el: '#app',
         data: function () {
             return {
+                photo: "",
                 dialogVisible: false,
                 doctorList: [],
                 doctor: {
@@ -304,12 +339,14 @@
         methods: {
             //点击确定更新按钮 进行数据库更新
             update() {
+                v.doctor.photo = v.photo;
                 axios.post("/doctor/update", v.doctor).then(function (response) {
                     alert(response.data)
                     v.dialogVisible = false;
                 })
             },
             openDialog(doc) {
+                v.photo = doc.photo;
                 v.doctor = doc;
                 v.dialogVisible = true;
             },
@@ -327,6 +364,26 @@
                         done();
                     })
                     .catch(_ => {});
+            },
+            handleAvatarSuccess(res, file) {
+                this.photo = URL.createObjectURL(file.raw);
+            },
+            handleRemove(file, fileList) {
+                axios.post("/file/delete", {fileName: v.photo}).then(function (response) {
+                    v.photo = ""
+                })
+            },
+            beforeAvatarUpload(file) {
+                const isJPG = file.type === 'image/jpeg';
+                const isLt2M = file.size / 1024 / 1024 < 2;
+
+                if (!isJPG) {
+                    this.$message.error('上传头像图片只能是 JPG 格式!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('上传头像图片大小不能超过 2MB!');
+                }
+                return isJPG && isLt2M;
             }
         },
         //一点开加载所有医生
